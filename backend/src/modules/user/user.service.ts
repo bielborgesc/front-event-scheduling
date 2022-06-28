@@ -13,16 +13,13 @@ export class UserService {
   ) {}
 
   async create(data: CreateUserDto) {
-    try {
-      const user = this.userRepository.create(data);
-      return await this.userRepository.save(user);
-    }
-    catch(error){
+    const user = this.userRepository.create(data);
+    return await this.userRepository.save(user).catch(() => {
       throw new HttpException({
         status: HttpStatus.UNPROCESSABLE_ENTITY,
         error: 'E-mail already registered',
       }, HttpStatus.UNPROCESSABLE_ENTITY);
-    }
+    });
   }
 
   findAll(): Promise<User[]> {
@@ -31,21 +28,17 @@ export class UserService {
     });
   }
 
-  findOneOrFail(options: FindOneOptions<User>): Promise<User> {
-    try {
-      return this.userRepository.findOneOrFail(options);
-    } catch (error) {
-      throw new NotFoundException({error: "Entity not found"});
-    }
+  async findOneOrFail(options: FindOneOptions<User>): Promise<User> {
+    return await this.userRepository.findOneOrFail(options).catch(() => {throw new NotFoundException("Entity not found")});
   }
 
   async remove(id: number) {
-    await this.userRepository.findOneOrFail({where: {id: id}});
+    await this.userRepository.findOneOrFail({where: {id: id}}).catch(() => {throw new NotFoundException("Entity not found")});
     this.userRepository.delete(id);
   }
 
   async update(id: number, data: UpdateUserDto): Promise<User> {
-    const user = await this.userRepository.findOneOrFail({where: {id: id}});
+    const user = await this.userRepository.findOneOrFail({where: {id: id}}).catch(() => {throw new NotFoundException("Entity not found")});
     this.userRepository.merge(user, data)
     return this.userRepository.save(user);
   }
