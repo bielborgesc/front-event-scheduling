@@ -1,32 +1,45 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
 import { User } from './user.entity';
+import { UpdateUserDto } from './../dto/update-user.dto';
+import { CreateUserDto } from '../dto/create-user.dto';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
-    private userRepository: Repository<User>,
+    private userRepository: Repository<User>
   ) {}
 
-  create(user: User): Promise<User> {
-    return this.userRepository.save(user);
+  async create(data: CreateUserDto) {
+    const user = this.userRepository.create(data);
+    return await this.userRepository.save(user).catch(() => {
+      throw new HttpException({
+        status: HttpStatus.UNPROCESSABLE_ENTITY,
+        error: 'E-mail already registered',
+      }, HttpStatus.UNPROCESSABLE_ENTITY);
+    });
   }
 
   findAll(): Promise<User[]> {
-    return this.userRepository.find();
+    return this.userRepository.find({ 
+      select: ['id', 'name', 'email']
+    });
   }
 
-  findOne(id: number): Promise<User> {
-    return this.userRepository.findOneBy({ id });
+  async findOneOrFail(options: FindOneOptions<User>): Promise<User> {
+    return await this.userRepository.findOneOrFail(options).catch(() => {throw new NotFoundException("Entity not found")});
   }
 
-  async remove(id: number): Promise<void> {
-    await this.userRepository.delete(id);
+  async remove(id: number) {
+    await this.userRepository.findOneOrFail({where: {id: id}}).catch(() => {throw new NotFoundException("Entity not found")});
+    this.userRepository.delete(id);
   }
 
-  update(id: number, user: User,): Promise<UpdateResult> {
-    return this.userRepository.update(id, user);
+  async update(id: number, data: UpdateUserDto): Promise<User> {
+    const user = await this.userRepository.findOneOrFail({where: {id: id}}).catch(() => {throw new NotFoundException("Entity not found")});
+    this.userRepository.merge(user, data)
+    return this.userRepository.save(user);
   }
 }
