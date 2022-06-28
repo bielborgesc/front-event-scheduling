@@ -9,6 +9,7 @@ import { UserService } from './modules/user/user.service';
 import { EventModule } from './modules/event/event.module';
 import { ConfigModule } from '@nestjs/config';
 import { Event } from './modules/event/event.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { Event } from './modules/event/event.entity';
     } as TypeOrmModuleOptions),
     UserModule,
     EventModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

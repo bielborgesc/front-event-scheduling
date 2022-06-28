@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOneOptions, Repository, UpdateResult } from 'typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
 import { User } from './user.entity';
 import { UpdateUserDto } from './../dto/update-user.dto';
 import { CreateUserDto } from '../dto/create-user.dto';
@@ -31,14 +31,6 @@ export class UserService {
     });
   }
 
-  findOne(id: number): Promise<User> {
-    try {
-      return this.userRepository.findOneBy({ id });
-    } catch (error) {
-      throw new NotFoundException({error: "Entity not found"});
-    }
-  }
-
   findOneOrFail(options: FindOneOptions<User>): Promise<User> {
     try {
       return this.userRepository.findOneOrFail(options);
@@ -48,12 +40,12 @@ export class UserService {
   }
 
   async remove(id: number) {
-    await this.userRepository.findOneByOrFail({id})
+    await this.userRepository.findOneOrFail({where: {id: id}});
     this.userRepository.delete(id);
   }
 
   async update(id: number, data: UpdateUserDto): Promise<User> {
-    const user = await this.userRepository.findOneByOrFail({id});
+    const user = await this.userRepository.findOneOrFail({where: {id: id}});
     this.userRepository.merge(user, data)
     return this.userRepository.save(user);
   }
