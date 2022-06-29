@@ -7,7 +7,7 @@ import { EventService } from './event.service';
 
 
 @Controller('event')
-@UseGuards(AuthGuard('jwt'))
+// @UseGuards(AuthGuard('jwt'))
 export class EventController {
   constructor(
     private eventService: EventService
