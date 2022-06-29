@@ -1,0 +1,22 @@
+<div class="container">
+  <a class="btn btn-outline-primary btn-sm" routerLink="/new-event" >New Event</a>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Description</th>
+        <th scope="col">Start</th>
+        <th scope="col">Finish</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events; index as i" >
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ event.description }}</td>
+        <td>{{ event.start | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+        <td>{{ event.finish | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
