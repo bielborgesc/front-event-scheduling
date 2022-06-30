@@ -1,24 +1,24 @@
 <div class="container">
   <div class="jumbotron">
     <h1 class="display-6">Event</h1>
-    <p class="lead-1">Inser or Update your event!</p>
+    <p class="lead-1">Update your event!</p>
     <hr class="my-2">
-    <form class="row g-3" [formGroup]="formEvent" (ngSubmit)="create()">
+    <form class="row g-3" [formGroup]="formEventEdit">
       <div class="col-md-4">
-        <label for="idDescription" class="form-label">Description</label>
+        <label for="idDescription" class="form-label">Descrição</label>
         <input type="text" formControlName="description" class="form-control" id="idDescription">
       </div>
       <div class="col-md-4">
-        <label for="idStart" class="form-label">Start In</label>
+        <label for="idStart" class="form-label">Começa em</label>
         <input type="datetime-local" formControlName="start" class="form-control" id="idStart">
       </div>
       <div class="col-md-4">
-        <label for="idFinish" class="form-label">Finish In</label>
+        <label for="idFinish" class="form-label">Termina em</label>
         <input type="datetime-local" formControlName="finish" class="form-control" id="idFinish">
       </div>
       <div class="d-grid gap-2 d-md-flex ">
-        <button class="btn btn-outline-primary me-md-2" (click)="create()" type="button">Confirm</button>
-        <a routerLink="/event-list" class="btn btn-outline-secondary">Cancel</a>
+        <button class="btn btn-outline-primary me-md-2" (click)="update()" type="button">Atualizar</button>
+        <a routerLink="/event-list" class="btn btn-outline-secondary">Voltar</a>
       </div>
     </form>
   </div>

@@ -8,6 +8,8 @@
         <th scope="col">Description</th>
         <th scope="col">Start</th>
         <th scope="col">Finish</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -16,6 +18,8 @@
         <td>{{ event.description }}</td>
         <td>{{ event.start | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
         <td>{{ event.finish | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td><a class="btn btn-outline-primary btn-sm" (click)="editEvent(event.id)" >Editar</a></td>
+        <td><a class="btn btn-outline-secondary btn-sm" (click)="removeEvent(event.id)" >Remover</a></td>
       </tr>
     </tbody>
   </table>

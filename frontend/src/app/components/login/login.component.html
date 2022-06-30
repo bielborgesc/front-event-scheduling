@@ -1,1 +1,20 @@
-<p>login works!</p>
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-6">Login</h1>
+    <hr class="my-2">
+    <form class="row g-3" [formGroup]="formLogin" (ngSubmit)="login()">
+      <div class="col-md-4">
+        <label for="idEmail" class="form-label">Email</label>
+        <input type="text" formControlName="email" class="form-control" id="idEmail">
+      </div>
+      <div class="col-md-4">
+        <label for="idPassword" class="form-label">Password</label>
+        <input type="password" formControlName="password" class="form-control" id="idPassword">
+      </div>
+      <div class="d-grid gap-2 d-md-flex ">
+        <button class="btn btn-outline-primary me-md-2" (click)="login()" type="button">Confirm</button>
+        <a routerLink="/registrar" class="btn btn-outline-secondary">Register</a>
+      </div>
+    </form>
+  </div>
+</div>

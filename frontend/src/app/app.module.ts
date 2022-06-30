@@ -13,6 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt'
+import { ReactiveFormsModule } from '@angular/forms';
+import { EditEventComponent } from './components/edit-event/edit-event.component';
+
 
 registerLocaleData(localePt);
 
@@ -22,14 +25,16 @@ registerLocaleData(localePt);
     EventListComponent,
     NewEventComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    EditEventComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [{provide: LOCALE_ID, useValue: 'pt-BR'}],
   bootstrap: [AppComponent]

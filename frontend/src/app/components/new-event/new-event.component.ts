@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
 
 @Component({
@@ -7,31 +9,36 @@ import { EventService } from 'src/app/services/event.service';
   styleUrls: ['./new-event.component.css']
 })
 export class NewEventComponent implements OnInit {
-  event: any;
-  user: any
-  description: any;
-  start: any;
-  finish: any;
 
-  constructor(private eventService: EventService) { }
+  formEvent = new FormGroup({
+    description: new FormControl(''),
+    start: new FormControl(''),
+    finish: new FormControl('')
+  })
+
+
+  constructor(
+    private eventService: EventService,
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
   }
 
-  save(): void{
+  create(): void{
     const event = {
       user: {
         id: "f35695d9-066b-448e-9cbd-bc087e6f33ee"
       },
-      description: this.description,
-      start: this.start,
-      finish: this.finish
+      description: this.formEvent.value.description,
+      start: this.formEvent.value.start,
+      finish: this.formEvent.value.finish
     }
-    console.log(event);
     this.eventService.create(event)
       .subscribe(
         response => {
           console.log(response);
+          this.router.navigate(['/event-list']);
         },
         error => {
           console.log(error);
