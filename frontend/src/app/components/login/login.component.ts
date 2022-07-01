@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from './../../services/user.service';
 
 @Component({
@@ -14,9 +16,16 @@ export class LoginComponent implements OnInit {
     password: new FormControl(''),
   })
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    public auth: AuthService,
+  ) { }
 
   ngOnInit(): void {
+    if (this.auth.isAuthenticated()) {
+      this.router.navigate(['']);
+    }
   }
 
   login(): void{
@@ -27,7 +36,8 @@ export class LoginComponent implements OnInit {
     this.userService.login(user)
     .subscribe(
       response => {
-        console.log(response);
+        localStorage.setItem ('token', response.token);
+        this.router.navigate(['']);
       },
       error => {
         console.log(error);

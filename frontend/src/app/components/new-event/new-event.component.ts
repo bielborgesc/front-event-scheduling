@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
+import decode from 'jwt-decode';
 
 @Component({
   selector: 'app-new-event',
@@ -26,9 +27,11 @@ export class NewEventComponent implements OnInit {
   }
 
   create(): void{
+    const token = localStorage.getItem('token');
+    const tokenPayload : any = decode(token!);
     const event = {
       user: {
-        id: "f35695d9-066b-448e-9cbd-bc087e6f33ee"
+        id: tokenPayload.sub
       },
       description: this.formEvent.value.description,
       start: this.formEvent.value.start,
