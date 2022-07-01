@@ -31,10 +31,9 @@ export class EditEventComponent implements OnInit {
       success => {
         let event = success;
         this.formEventEdit.get('description')?.setValue(event.description);
-        this.formEventEdit.get('start')?.setValue(event.start);
-        this.formEventEdit.get('finish')?.setValue(event.finish);
-        console.log('2022-07-01T01:00')
-        console.log(event.start)
+        this.formEventEdit.get('start')?.setValue(event.start.slice(0, 16));
+        this.formEventEdit.get('finish')?.setValue(event.finish.slice(0, 16));
+
       },
       error => console.error(error),
     );

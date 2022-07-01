@@ -19,5 +19,9 @@ export class UserService {
     return this.http.post(`${baseUrl}/user`, user);
   }
 
+  findOne(id: string): Observable<any> {
+    return this.http.get(`${baseUrl}/user/${id}`)
+  }
+
 
 }

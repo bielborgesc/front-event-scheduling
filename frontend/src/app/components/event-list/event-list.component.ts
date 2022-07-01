@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/services/event.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import { Location } from '@angular/common';
+import decode from 'jwt-decode';
+import { UserService } from './../../services/user.service';
 
 @Component({
   selector: 'app-event-list',
@@ -14,6 +16,7 @@ export class EventListComponent implements OnInit {
   constructor(
     private location: Location,
     private eventService: EventService,
+    private userService: UserService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) { }
@@ -23,6 +26,8 @@ export class EventListComponent implements OnInit {
   }
 
   findAllEvents(): void {
+    const token = localStorage.getItem('token');
+    const tokenPayload : any = decode(token!);
     this.eventService.findAll()
       .subscribe(
         data => {
