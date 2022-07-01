@@ -8,9 +8,9 @@
           <span>Event</span> <span>Scheduling</span>
         </div>
       </div>
-        <div class="perfil">
+        <div [ngClass]="'perfil'" [ngStyle]="{display: getVisibility()}">
             <button type="button" class="btn">
-              <i class="bi bi-person-circle"></i>
+              <i class="bi bi-box-arrow-right"></i>
             </button>
         </div>
     </div>

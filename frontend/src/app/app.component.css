@@ -25,7 +25,6 @@
 }
 
 .perfil button{
-  display: none;
   background-color: var(--color-blue);
   color: var(--color-white);
 }
