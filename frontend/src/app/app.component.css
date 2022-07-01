@@ -21,7 +21,7 @@
 
 .navbar{
   background-color: var(--color-black);
-  box-shadow: 0 2px 7px 0 rgba(0,0,0,.7);
+  box-shadow: 0 2px 7px 0 rgba(0,0,0,.5);
 }
 
 .perfil button{
@@ -37,6 +37,11 @@
 
 footer {
   color: var(--color-white);
-  display: flex;
-  justify-content: center;
+  background-color: var(--color-black);
+  box-shadow: 0 -2px 7px 0 rgba(0,0,0,.5);
+}
+
+.content{
+  min-height: calc(100vh - 76px - 56px);
+  height: auto;
 }
