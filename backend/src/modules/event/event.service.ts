@@ -7,14 +7,14 @@ import { Event } from './event.entity';
 
 @Injectable()
 export class EventService {
-    constructor(
+  constructor(
         @InjectRepository(Event)
         private eventRepository: Repository<Event>,
     ) {}
 
     async create(data: CreateEventDto) {
       try {
-        const event = this.eventRepository.create(data)
+      const event = this.eventRepository.create(data);
         const userEvents: Event[] = await this.eventRepository.query(
           `SELECT * FROM event where userId = '${(event.user.id)}'
           and start  BETWEEN '${event.start}' and '${event.finish}'
@@ -47,11 +47,11 @@ export class EventService {
           `SELECT * FROM event where userId = '${(event.user.id)}'
           and start  BETWEEN '${event.start}' and '${event.finish}'
           or finish BETWEEN '${event.start}' and '${event.finish}'`);
-          console.log(userEvents);
         if(userEvents.length >= 1) throw new Error();
+        if(event.start > event.finish || event.start < new Date()) throw new Error();
         return this.eventRepository.save(event);
       } catch (error) {
-        throw new BadRequestException({message: "Event conflict, an event already exists for that date"})
+        throw new BadRequestException({message: "Event conflict, an event already exists for that date or date not is valid"})
       }
     }
     

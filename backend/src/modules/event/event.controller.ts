@@ -1,4 +1,15 @@
-import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateEventDto } from '../dto/create-event.dto';
 import { UpdateEventDto } from '../dto/update-event.dto';
@@ -7,11 +18,9 @@ import { EventService } from './event.service';
 
 
 @Controller('event')
-@UseGuards(AuthGuard('jwt'))
+// @UseGuards(AuthGuard('jwt'))
 export class EventController {
-  constructor(
-    private eventService: EventService
-  ){}
+  constructor(private eventService: EventService) {}
 
   @Post()
   create(@Body() body: CreateEventDto): Promise<Event> {
@@ -25,7 +34,7 @@ export class EventController {
 
   @Get(':id')
   findOne(@Param('id') id: number): Promise<Event> {
-    return this.eventService.findOneOrFail({where: {id: id}});
+    return this.eventService.findOneOrFail({ where: { id: id } });
   }
 
   @Delete(':id')

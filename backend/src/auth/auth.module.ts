@@ -11,14 +11,15 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    UserModule, 
+    UserModule,
     PassportModule,
     JwtModule.register({
       privateKey: process.env.JWT_SECRET_KEY,
-      signOptions: {expiresIn: process.env.TOKEN_EXPIRATION},
-    })
+      signOptions: { expiresIn: process.env.TOKEN_EXPIRATION },
+    }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStategy, JwtStrategy]
+  providers: [AuthService, LocalStategy, JwtStrategy],
+  exports: [AuthService],
 })
 export class AuthModule {}

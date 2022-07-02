@@ -1,0 +1,27 @@
+<header>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <img src="../assets/imgs/scheduling_icon_white.png" alt="Imagem de um calendário com relógio a frente" width="50" height="50">
+        <div class="dash"></div>
+        <div class="title-logo title-font">
+          <span>Event</span> <span>Scheduling</span>
+        </div>
+      </div>
+        <div [ngClass]="'perfil'" [ngStyle]="{display: getVisibility()}">
+            <button type="button" class="btn" (click)="openModal()">
+              <i class="bi bi-box-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+  </nav>
+</header>
+<main class="content">
+  <router-outlet></router-outlet>
+  <lib-ng-toast></lib-ng-toast>
+</main>
+<footer class="text-center text-font">
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2022 Copyright: Desenvolvido pelo Gabriel Borges
+  </div>
+</footer>
