@@ -18,6 +18,7 @@ import { EditEventComponent } from './components/edit-event/edit-event.component
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { HttpsRequestInterceptor, Interceptor } from './interceptors/HttpsRequestInterceptor';
 import { ModalComponent } from './components/modal/modal.component';
+import { ModalEventComponent } from './components/modalEvent/modalEvent.component';
 
 
 registerLocaleData(localePt);
@@ -30,7 +31,8 @@ registerLocaleData(localePt);
     LoginComponent,
     RegisterComponent,
     EditEventComponent,
-    ModalComponent
+    ModalComponent,
+    ModalEventComponent
   ],
   imports: [
     BrowserModule,

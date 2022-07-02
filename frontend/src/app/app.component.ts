@@ -27,8 +27,4 @@ export class AppComponent {
     const modalRef = this.modalService.open(ModalComponent)
   }
 
-  logout(){
-    console.log("Nãaoooo")
-  }
-
 }

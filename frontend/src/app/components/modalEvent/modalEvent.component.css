@@ -1,0 +1,71 @@
+.container-events{
+  position: relative;
+  top: 40px;
+}
+
+.btn-new-event{
+  margin: 10px 0;
+}
+
+.btn-new-event button, .btn-yes{
+  color: var(--color-green);
+  border-color: var(--color-green);
+}
+
+.btn-new-event button:hover, .btn-yes:hover{
+  color: var(--color-white);
+  background-color: var(--color-green);
+}
+
+.btn-no{
+  color: var(--color-red);
+  border-color: var(--color-red);
+}
+
+.btn-no:hover{
+  color: var(--color-white);
+  background-color: var(--color-red);
+}
+
+.card-margin {
+  margin-bottom: 1.875rem;
+}
+
+.group-button button{
+  margin: 10px 5px;
+}
+
+.card {
+  border: 0;
+  box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+  -ms-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #ffffff;
+  background-clip: border-box;
+  border: 1px solid #e6e4e9;
+  border-radius: 8px;
+}
+
+.card .card-header.no-border {
+  border: 0;
+}
+.card .card-header {
+  background: none;
+  padding: 0 0.9375rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  min-height: 50px;
+}
+.card-header:first-child {
+  border-radius: calc(8px - 1px) calc(8px - 1px) 0 0;
+}
+
