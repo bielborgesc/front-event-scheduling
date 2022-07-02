@@ -19,6 +19,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { HttpsRequestInterceptor, Interceptor } from './interceptors/HttpsRequestInterceptor';
 import { ModalComponent } from './components/modal/modal.component';
 import { ModalEventComponent } from './components/modalEvent/modalEvent.component';
+import { NgToastModule } from 'ng-angular-popup';
 
 
 registerLocaleData(localePt);
@@ -32,7 +33,7 @@ registerLocaleData(localePt);
     RegisterComponent,
     EditEventComponent,
     ModalComponent,
-    ModalEventComponent
+    ModalEventComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +43,7 @@ registerLocaleData(localePt);
     HttpClientModule,
     ReactiveFormsModule,
     Interceptor,
+    NgToastModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt-BR'},

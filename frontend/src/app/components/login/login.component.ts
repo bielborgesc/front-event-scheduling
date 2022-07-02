@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from './../../services/user.service';
+import { NgToastService} from 'ng-angular-popup';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     public auth: AuthService,
+    private toast: NgToastService
   ) { }
 
   ngOnInit(): void {
@@ -37,11 +39,11 @@ export class LoginComponent implements OnInit {
     .subscribe(
       response => {
         localStorage.setItem ('token', response.token);
-
         this.router.navigate(['']);
+        this.toast.success({detail: "Mensagem de Sucesso", summary: "Login realizado com sucesso", duration: 5000})
       },
       error => {
-        console.log(error);
+        this.toast.error({detail: "Mensagem de Erro", summary: error.error.message, duration: 5000})
       }
     )
   }
