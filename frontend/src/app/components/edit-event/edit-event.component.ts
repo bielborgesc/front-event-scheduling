@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
 import decode from 'jwt-decode';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-edit-event',
@@ -22,7 +23,8 @@ export class EditEventComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private toast: NgToastService
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +37,7 @@ export class EditEventComponent implements OnInit {
         this.formEventEdit.get('finish')?.setValue(event.finish.slice(0, 16));
 
       },
-      error => console.error(error),
+      error => this.toast.error({detail: "Mensagem de erro", summary: "Houve um erro tente novamente", duration: 5000}),
     );
   }
 
@@ -54,9 +56,10 @@ export class EditEventComponent implements OnInit {
       .subscribe(
         response => {
           this.router.navigate(['/event-list']);
+          this.toast.success({detail: "Mensagem de Sucesso", summary: "Evento atualizado com sucesso", duration: 5000})
         },
         error => {
-          console.log(error);
+          this.toast.error({detail: "Mensagem de erro", summary: "Houve um erro tente novamente", duration: 5000})
         }
       )
   }

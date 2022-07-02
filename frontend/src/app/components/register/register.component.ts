@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { UserService } from './../../services/user.service';
 @Component({
   selector: 'app-register',
@@ -18,6 +19,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
+    private toast: NgToastService
   ) { }
 
   ngOnInit(): void {
@@ -33,9 +35,11 @@ export class RegisterComponent implements OnInit {
     .subscribe(
       response => {
         this.router.navigate(['/login']);
+        this.toast.success({detail: "Mensagem de Sucesso", summary: "Conta criada com sucesso", duration: 5000})
       },
       error => {
         console.log(error);
+        this.toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
       }
     )
   }

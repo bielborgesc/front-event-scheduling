@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         this.toast.success({detail: "Mensagem de Sucesso", summary: "Login realizado com sucesso", duration: 5000})
       },
       error => {
-        this.toast.error({detail: "Mensagem de Erro", summary: error.error.message, duration: 5000})
+        this.toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
       }
     )
   }

@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
 import decode from 'jwt-decode';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-new-event',
@@ -21,6 +22,7 @@ export class NewEventComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private router: Router,
+    private toast: NgToastService
   ) { }
 
   ngOnInit(): void {
@@ -40,11 +42,11 @@ export class NewEventComponent implements OnInit {
     this.eventService.create(event)
       .subscribe(
         response => {
-          console.log(response);
           this.router.navigate(['/event-list']);
+          this.toast.success({detail: "Mensagem de Sucesso", summary: "Evento cadastrado com sucesso", duration: 5000})
         },
         error => {
-          console.log(error);
+          this.toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
         }
       )
   }

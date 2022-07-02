@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { NgToastService } from 'ng-angular-popup';
 import { EventService } from 'src/app/services/event.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class ModalEventComponent implements OnInit {
 
   constructor(
     public activateModal: NgbActiveModal,
-    private eventService: EventService
+    private eventService: EventService,
+    private toast: NgToastService
   ) { }
 
   ngOnInit() {
@@ -25,9 +27,10 @@ export class ModalEventComponent implements OnInit {
       success => {
         this.activateModal.close()
         location.reload();
+        this.toast.success({detail: "Mensagem de Sucesso", summary: "Evento excluido com sucesso", duration: 5000})
       },
       error => {
-        console.log(error);
+        this.toast.error({detail: "Mensagem de Erro", summary: "", duration: 5000})
       }
     )
   }
