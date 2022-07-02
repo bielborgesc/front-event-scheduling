@@ -20,14 +20,17 @@ export class EventService {
           and start  BETWEEN '${event.start}' and '${event.finish}'
           or finish BETWEEN '${event.start}' and '${event.finish}'`);
         if(userEvents.length >= 1) throw new Error();
+        if( new Date(event.start) > new Date(event.finish)) throw new Error();
+        if( new Date(event.start) < new Date()) throw new Error();
         return await this.eventRepository.save(event);
       } catch (error) {
         throw new BadRequestException({message: "Event conflict, an event already exists for that date"})
       }
     }
     
-    findAll(): Promise<Event[]> {
-      return this.eventRepository.find();
+    async findAll(): Promise<Event[]> {
+      let events = await this.eventRepository.find()
+      return events.sort((a, b) => (a.start < b.finish) ? -1 : 1);
     }
     
     async findOneOrFail(options: FindOneOptions<Event>): Promise<Event> {
@@ -47,8 +50,9 @@ export class EventService {
           `SELECT * FROM event where userId = '${(event.user.id)}'
           and start  BETWEEN '${event.start}' and '${event.finish}'
           or finish BETWEEN '${event.start}' and '${event.finish}'`);
-        if(userEvents.length >= 1) throw new Error();
-        if(event.start > event.finish || event.start < new Date()) throw new Error();
+          if(userEvents.length >= 1) throw new Error();
+          if( new Date(event.start) > new Date(event.finish)) throw new Error();
+          if( new Date(event.start) < new Date()) throw new Error();
         return this.eventRepository.save(event);
       } catch (error) {
         throw new BadRequestException({message: "Event conflict, an event already exists for that date or date not is valid"})

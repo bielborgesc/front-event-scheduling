@@ -29,7 +29,9 @@ export class UserService {
   }
 
   async findOneOrFail(options: FindOneOptions<User>): Promise<User> {
-    return await this.userRepository.findOneOrFail(options).catch(() => {throw new NotFoundException("Entity not found")});
+    let user = await this.userRepository.findOneOrFail(options).catch(() => {throw new NotFoundException("Entity not found")});
+    user.events = user.events.sort((a, b) => (a.start < b.finish) ? -1 : 1);
+    return user;
   }
 
   async remove(id: number) {
