@@ -32,7 +32,7 @@ export class UserController {
   }
 
   @Get(':id')
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   findOne(@Param('id') id: number): Promise<User> {
     return this.userService.findOneOrFail({ where: { id: id } });
   }

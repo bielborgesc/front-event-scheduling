@@ -10,7 +10,7 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
    intercept(req: HttpRequest<any>,next: HttpHandler): Observable<HttpEvent<any>> {
       const token: string | null = localStorage.getItem('token');
       const dupReq = req.clone({
-         headers: req.headers.set('token', token ? 'Bearer ' + token : '')
+         headers: req.headers.set('Authorization', token ? 'Bearer ' + token : '')
       });
       return next.handle(dupReq);
    }
