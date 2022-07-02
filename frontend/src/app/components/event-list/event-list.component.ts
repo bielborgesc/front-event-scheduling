@@ -32,10 +32,10 @@ export class EventListComponent implements OnInit {
   findAllEvents(): void {
     const token = localStorage.getItem('token');
     const tokenPayload : any = decode(token!);
-    this.eventService.findAll()
+    this.userService.findOne(tokenPayload.sub)
       .subscribe(
         data => {
-          this.events = data;
+          this.events = data.events;
         },
         error => {
           console.log(error);
