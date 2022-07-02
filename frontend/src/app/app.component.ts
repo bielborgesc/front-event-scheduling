@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './auth/auth.service';
+import { ModalComponent } from './components/modal/modal.component';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,7 @@ export class AppComponent {
 
   constructor(
     private auth: AuthService,
+    private modalService: NgbModal
   ) { }
 
   getVisibility(){
@@ -19,4 +22,13 @@ export class AppComponent {
     }
     return 'none'
   }
+
+  openModal(){
+    const modalRef = this.modalService.open(ModalComponent)
+  }
+
+  logout(){
+    console.log("Nãaoooo")
+  }
+
 }

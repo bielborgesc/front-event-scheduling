@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditEventComponent } from './components/edit-event/edit-event.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { HttpsRequestInterceptor, Interceptor } from './interceptors/HttpsRequestInterceptor';
+import { ModalComponent } from './components/modal/modal.component';
 
 
 registerLocaleData(localePt);
@@ -28,7 +29,8 @@ registerLocaleData(localePt);
     NewEventComponent,
     LoginComponent,
     RegisterComponent,
-    EditEventComponent
+    EditEventComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
