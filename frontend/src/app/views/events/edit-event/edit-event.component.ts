@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EventService } from 'src/app/services/event.service';
+import { EventService } from 'src/app/views/events/event.service';
 import decode from 'jwt-decode';
 import { NgToastService } from 'ng-angular-popup';
 

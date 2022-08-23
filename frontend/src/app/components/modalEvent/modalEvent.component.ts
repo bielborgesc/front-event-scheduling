@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { NgToastService } from 'ng-angular-popup';
-import { EventService } from 'src/app/services/event.service';
+import { EventService } from 'src/app/views/events/event.service';
 
 @Component({
   selector: 'app-modal',

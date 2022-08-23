@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService } from 'src/app/services/event.service';
+import { EventService } from 'src/app/views/events/event.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import { Location } from '@angular/common';
 import decode from 'jwt-decode';
-import { UserService } from './../../services/user.service';
+import { UserService } from '../../user/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalEventComponent } from '../modalEvent/modalEvent.component';
+import { ModalEventComponent } from '../../../components/modalEvent/modalEvent.component';
 
 
 @Component({

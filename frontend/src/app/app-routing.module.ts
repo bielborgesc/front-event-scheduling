@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './auth/auth-guard.service';
-import { EditEventComponent } from './components/edit-event/edit-event.component';
-import { EventListComponent } from './components/event-list/event-list.component';
-import { LoginComponent } from './components/login/login.component';
-import { NewEventComponent } from './components/new-event/new-event.component';
-import { RegisterComponent } from './components/register/register.component';
+import { EditEventComponent } from './views/events/edit-event/edit-event.component';
+import { EventListComponent } from './views/events/event-list/event-list.component';
+import { LoginComponent } from './views/user/login/login.component';
+import { NewEventComponent } from './views/events/new-event/new-event.component';
+import { RegisterComponent } from './views/user/register/register.component';
 
 const routes: Routes = [
 
