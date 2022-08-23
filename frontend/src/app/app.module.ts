@@ -20,6 +20,8 @@ import { HttpsRequestInterceptor, Interceptor } from './interceptors/HttpsReques
 import { ModalComponent } from './components/modal/modal.component';
 import { ModalEventComponent } from './components/modalEvent/modalEvent.component';
 import { NgToastModule } from 'ng-angular-popup';
+import { HeaderComponent } from './components/template/header/header.component';
+import { FooterComponent } from './components/template/footer/footer.component';
 
 
 registerLocaleData(localePt);
@@ -34,6 +36,8 @@ registerLocaleData(localePt);
     EditEventComponent,
     ModalComponent,
     ModalEventComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
