@@ -22,6 +22,7 @@ import { ModalEventComponent } from './components/modalEvent/modalEvent.componen
 import { NgToastModule } from 'ng-angular-popup';
 import { HeaderComponent } from './components/template/header/header.component';
 import { FooterComponent } from './components/template/footer/footer.component';
+import { LogoutDirective } from './directives/logout.directive';
 
 
 registerLocaleData(localePt);
@@ -38,6 +39,7 @@ registerLocaleData(localePt);
     ModalEventComponent,
     HeaderComponent,
     FooterComponent,
+    LogoutDirective,
   ],
   imports: [
     BrowserModule,
