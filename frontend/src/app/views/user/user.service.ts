@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { User } from './user';
 
 const baseUrl = 'http://localhost:3000'
 
@@ -11,7 +12,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  login(user: any): Observable<any> {
+  login(user: User): Observable<any> {
     return this.http.post(`${baseUrl}/user/login`, user);
   }
 

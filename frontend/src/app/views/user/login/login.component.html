@@ -5,13 +5,13 @@
         <div class="card border-0 shadow rounded-3 my-5">
           <div class="card-body p-4 p-sm-5">
             <h2 class="card-title text-center mb-5 fw-light title-font title-form">Login</h2>
-            <form [formGroup]="formLogin" (ngSubmit)="login()">
+            <form [formGroup]="formLogin">
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" formControlName="email" placeholder="name@example.com">
+                <input type="email" [(ngModel)]="user.email" class="form-control" id="floatingInput" formControlName="email" placeholder="name@example.com">
                 <label for="floatingInput">Email</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="floatingPassword" formControlName="password" placeholder="Password">
+                <input type="password" [(ngModel)]="user.password" class="form-control" id="floatingPassword" formControlName="password" placeholder="Password">
                 <label for="floatingPassword">Senha</label>
               </div>
               <div class="d-grid">

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from '../user.service';
 import { NgToastService} from 'ng-angular-popup';
+import { User } from '../user';
+import { LogoutDirective } from 'src/app/directives/access.directive';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +14,7 @@ import { NgToastService} from 'ng-angular-popup';
 })
 export class LoginComponent implements OnInit {
 
+  user: User = new User();
   formLogin = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
@@ -21,7 +24,7 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     public auth: AuthService,
-    private toast: NgToastService
+    private toast: NgToastService,
   ) { }
 
   ngOnInit(): void {
@@ -31,11 +34,9 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void{
-    const user = {
-      email: this.formLogin.value.email,
-      password: this.formLogin.value.password
-    }
-    this.userService.login(user)
+    this.user.email = "borges@dev.com";
+    this.user.password = "@Gabriel05";
+    this.userService.login(this.user)
     .subscribe(
       response => {
         localStorage.setItem ('token', response.token);

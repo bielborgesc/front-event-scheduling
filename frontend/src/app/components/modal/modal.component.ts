@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { LogoutDirective } from 'src/app/directives/access.directive';
 
 @Component({
   selector: 'app-modal',
@@ -10,6 +12,7 @@ export class ModalComponent implements OnInit {
 
   constructor(
     public activateModal: NgbActiveModal,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -17,7 +20,8 @@ export class ModalComponent implements OnInit {
 
   logout(){
     localStorage.removeItem("token");
-    location.reload();
+    this.activateModal.close();
+    this.router.navigate(['/login']);
   }
 
 }
