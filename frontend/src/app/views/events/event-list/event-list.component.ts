@@ -3,7 +3,7 @@ import { EventService } from 'src/app/views/events/event.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import { Location } from '@angular/common';
 import decode from 'jwt-decode';
-import { UserService } from '../../user/user.service';
+import { UserService } from '../../../service/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalEventComponent } from '../../../components/modalEvent/modalEvent.component';
 

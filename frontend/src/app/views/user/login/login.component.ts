@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
-import { UserService } from '../user.service';
+import { UserService } from '../../../service/user.service';
 import { NgToastService} from 'ng-angular-popup';
-import { User } from '../user';
+import { User } from '../../../model/user.model';
 import { LogoutDirective } from 'src/app/directives/access.directive';
 
 @Component({

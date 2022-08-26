@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalComponent } from '../../modal/modal.component';
+import { ModalComponent } from '../modal/modal.component';
 
 
 @Component({

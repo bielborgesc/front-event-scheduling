@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { User } from './user';
+import { User } from '../model/user.model';
 
 const baseUrl = 'http://localhost:3000'
 

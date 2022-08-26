@@ -20,8 +20,8 @@ import { HttpsRequestInterceptor, Interceptor } from './interceptors/HttpsReques
 import { ModalComponent } from './components/modal/modal.component';
 import { ModalEventComponent } from './components/modalEvent/modalEvent.component';
 import { NgToastModule } from 'ng-angular-popup';
-import { HeaderComponent } from './components/template/header/header.component';
-import { FooterComponent } from './components/template/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { LogoutDirective } from './directives/access.directive';
 
 
