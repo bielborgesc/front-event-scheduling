@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from 'src/app/service/event.service';
 import decode from 'jwt-decode';
 import { NgToastService } from 'ng-angular-popup';
-import { Event } from 'src/app/model/event.model';
 
 @Component({
   selector: 'app-edit-event',
@@ -52,16 +51,18 @@ export class EditEventComponent implements OnInit {
       start: this.formEventEdit.value.start,
       finish: this.formEventEdit.value.finish
     }
+    const router = this.router;
+    const toast = this.toast;
     this.eventService.update(event, this.idEvent)
-      .subscribe(
-        response => {
-          this.router.navigate(['/event-list']);
-          this.toast.success({detail: "Mensagem de Sucesso", summary: "Evento atualizado com sucesso", duration: 5000})
+      .subscribe({
+        next(value) {
+          router.navigate(['/event-list']);
+          toast.success({detail: "Mensagem de Sucesso", summary: "Evento atualizado com sucesso", duration: 5000})
         },
-        error => {
-          this.toast.error({detail: "Mensagem de erro", summary: "Houve um erro tente novamente", duration: 5000})
-        }
-      )
+        error(err) {
+          toast.error({detail: "Mensagem de erro", summary: "Houve um erro tente novamente", duration: 5000})
+        },
+      })
   }
 
 

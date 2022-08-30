@@ -39,16 +39,18 @@ export class NewEventComponent implements OnInit {
       start: this.formEvent.value.start,
       finish: this.formEvent.value.finish
     }
+    const router = this.router;
+    const toast = this.toast;
     this.eventService.create(event)
-      .subscribe(
-        response => {
-          this.router.navigate(['/event-list']);
-          this.toast.success({detail: "Mensagem de Sucesso", summary: "Evento cadastrado com sucesso", duration: 5000})
+      .subscribe({
+        next(){
+          router.navigate(['/event-list']);
+          toast.success({detail: "Mensagem de Sucesso", summary: "Evento cadastrado com sucesso", duration: 5000})
         },
-        error => {
-          this.toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
+        error(){
+          toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
         }
-      )
+      })
   }
 
 }

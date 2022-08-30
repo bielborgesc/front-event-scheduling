@@ -13,10 +13,9 @@ import { User } from '../../../model/user.model';
 })
 export class LoginComponent implements OnInit {
 
-  user: User = new User();
   formLogin = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
+    email: new FormControl('borges@dev.com'),
+    password: new FormControl('@Gabriel05'),
   })
 
   constructor(
@@ -33,19 +32,18 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void{
-    this.user.email = "borges@dev.com";
-    this.user.password = "@Gabriel05";
-    this.userService.login(this.user)
-    .subscribe(
-      response => {
-        localStorage.setItem ('token', response.token);
-        this.router.navigate(['']);
-        this.toast.success({detail: "Mensagem de Sucesso", summary: "Login realizado com sucesso", duration: 5000})
-      },
-      error => {
-        this.toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
-      }
-    )
+    const router = this.router;
+    const toast = this.toast;
+    this.userService.login(this.formLogin.value)
+      .subscribe({
+        next(value) {
+          localStorage.setItem('token', value.token);
+          router.navigate(['']);
+          toast.success({detail: "Mensagem de Sucesso", summary: "Login realizado com sucesso", duration: 5000})
+        },
+        error(err) {
+          toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
+        },
+      })
   }
-
 }

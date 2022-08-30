@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
     name: new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
+    confirmPassword: new FormControl(''),
   })
 
   constructor(
@@ -31,17 +32,18 @@ export class RegisterComponent implements OnInit {
       email: this.formRegister.value.email,
       password: this.formRegister.value.password
     }
+    const router = this.router;
+    const toast = this.toast;
     this.userService.create(user)
-    .subscribe(
-      response => {
-        this.router.navigate(['/login']);
-        this.toast.success({detail: "Mensagem de Sucesso", summary: "Conta criada com sucesso", duration: 5000})
+    .subscribe({
+      next(value) {
+        router.navigate(['/login']);
+        toast.success({detail: "Mensagem de Sucesso", summary: "Conta criada com sucesso", duration: 5000})
       },
-      error => {
-        console.log(error);
-        this.toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
+      error(err) {
+        toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
       }
-    )
+    })
   }
 
 }
