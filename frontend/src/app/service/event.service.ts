@@ -11,8 +11,8 @@ export class EventService {
 
   constructor(private http: HttpClient) { }
 
-  findAll(): Observable<any> {
-    return this.http.get(`${baseUrl}`);
+  findAll(): Observable<Event[]> {
+    return this.http.get<Event[]>(`${baseUrl}`);
   }
 
   create(event: any): Observable<any> {
@@ -24,7 +24,7 @@ export class EventService {
   }
 
   findOne(id: number): Observable<any> {
-    return this.http.get(`${baseUrl}/${id}`);
+    return this.http.get<any>(`${baseUrl}/${id}`);
   }
 
   delete(id: number): Observable<any> {

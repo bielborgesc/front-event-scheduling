@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService } from 'src/app/views/events/event.service';
+import { EventService } from 'src/app/service/event.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import { Location } from '@angular/common';
 import decode from 'jwt-decode';
@@ -14,7 +14,8 @@ import { ModalEventComponent } from '../../../components/modalEvent/modalEvent.c
   styleUrls: ['./event-list.component.css']
 })
 export class EventListComponent implements OnInit {
-  events:any;
+
+  events:Event[] | any;
 
   constructor(
     private location: Location,
@@ -32,15 +33,12 @@ export class EventListComponent implements OnInit {
   findAllEvents(): void {
     const token = localStorage.getItem('token');
     const tokenPayload : any = decode(token!);
-    this.userService.findOne(tokenPayload.sub)
-      .subscribe(
-        data => {
-          this.events = data.events;
-        },
-        error => {
-          console.log(error);
-        }
-      )
+    this.userService.findOne(tokenPayload.sub).subscribe({
+      next: (user) => {
+        this.events = user.events
+      },
+      error: (e) => console.error(e),
+    })
   }
 
   editEvent(id: number): void{

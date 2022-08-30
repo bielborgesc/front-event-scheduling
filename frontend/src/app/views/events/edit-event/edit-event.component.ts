@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EventService } from 'src/app/views/events/event.service';
+import { EventService } from 'src/app/service/event.service';
 import decode from 'jwt-decode';
 import { NgToastService } from 'ng-angular-popup';
+import { Event } from 'src/app/model/event.model';
 
 @Component({
   selector: 'app-edit-event',
@@ -29,16 +30,15 @@ export class EditEventComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => this.idEvent = params['id']);
-    this.eventService.findOne(this.idEvent).subscribe(
-      success => {
-        let event = success;
+    this.eventService.findOne(this.idEvent).subscribe({
+      next: event => {
         this.formEventEdit.get('description')?.setValue(event.description);
         this.formEventEdit.get('start')?.setValue(event.start.slice(0, 16));
         this.formEventEdit.get('finish')?.setValue(event.finish.slice(0, 16));
-
       },
-      error => this.toast.error({detail: "Mensagem de erro", summary: "Houve um erro tente novamente", duration: 5000}),
-    );
+      error: () => this.toast.error({detail: "Mensagem de erro", summary: "Houve um erro tente novamente", duration: 5000}),
+
+    })
   }
 
   update(): void{

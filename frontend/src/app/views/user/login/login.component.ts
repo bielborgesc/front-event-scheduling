@@ -5,7 +5,6 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from '../../../service/user.service';
 import { NgToastService} from 'ng-angular-popup';
 import { User } from '../../../model/user.model';
-import { LogoutDirective } from 'src/app/directives/access.directive';
 
 @Component({
   selector: 'app-login',

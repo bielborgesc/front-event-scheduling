@@ -8,7 +8,7 @@
     <button class="btn btn-outline-primary btn-sm btn-new-event" routerLink="/new-event" >Novo Evento</button>
   </div>
   <div class="row">
-    <div class="col-lg-4 col-md-6" *ngFor="let event of events; index as i">
+    <div class="col-lg-4 col-md-6" *ngFor="let event of events">
       <div class="card card-margin">
         <div class="card-header no-border">
             <h5 class="card-title title-font">{{event.description}}</h5>
