@@ -22,17 +22,18 @@ export class ModalEventComponent implements OnInit {
   }
 
   removeItem(){
+    const toast = this.toast;
+    const modal = this.activateModal
     this.eventService.delete(this.event.id)
-    .subscribe(
-      success => {
-        this.activateModal.close()
-        location.reload();
-        this.toast.success({detail: "Mensagem de Sucesso", summary: "Evento excluido com sucesso", duration: 5000})
+    .subscribe({
+      next(value) {
+        modal.close();
+        toast.success({detail: "Mensagem de Sucesso", summary: "Evento excluido com sucesso", duration: 5000})
       },
-      error => {
-        this.toast.error({detail: "Mensagem de Erro", summary: "", duration: 5000})
+      error(err){
+        toast.error({detail: "Mensagem de Erro", summary: "", duration: 5000})
       }
-    )
+    })
   }
 
 }

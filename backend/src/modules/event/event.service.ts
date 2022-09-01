@@ -16,12 +16,10 @@ export class EventService {
       try {
       const event = this.eventRepository.create(data);
         const userEvents: Event[] = await this.eventRepository.query(
-          `SELECT * FROM event where userId = '${(event.user.id)}'
-          and start  BETWEEN '${event.start}' and '${event.finish}'
-          or finish BETWEEN '${event.start}' and '${event.finish}'`);
-        if(userEvents.length >= 1) throw new Error();
-        if( new Date(event.start) > new Date(event.finish)) throw new Error();
-        if( new Date(event.start) < new Date()) throw new Error();
+          `SELECT * FROM event where userId = '${(event.user.id)}'`);
+        // if(userEvents.length >= 1) throw new Error();
+        // if( new Date(event.start) > new Date(event.finish)) throw new Error();
+        // if( new Date(event.start) < new Date()) throw new Error();
         return await this.eventRepository.save(event);
       } catch (error) {
         throw new BadRequestException({message: "Event conflict, an event already exists for that date"})

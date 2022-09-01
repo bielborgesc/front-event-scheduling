@@ -16,9 +16,9 @@ import { ModalEventComponent } from '../../../components/modalEvent/modalEvent.c
 export class EventListComponent implements OnInit {
 
   events:Event[] | any;
+  token: any = decode(localStorage.getItem('token')!);
 
   constructor(
-    private location: Location,
     private eventService: EventService,
     private userService: UserService,
     private router: Router,
@@ -28,14 +28,18 @@ export class EventListComponent implements OnInit {
 
   ngOnInit(): void {
     this.findAllEvents();
+    this.eventService.emitDeletedEvent
+    .subscribe( async eventId => {
+      setTimeout(() => this.userService.findOne(this.token.sub).subscribe((user) => this.events = user.events), 500);
+      console.log(`O evento de id: ${eventId} foi excluído!`);
+    });
   }
 
   findAllEvents(): void {
-    const token = localStorage.getItem('token');
-    const tokenPayload : any = decode(token!);
-    this.userService.findOne(tokenPayload.sub).subscribe({
+    this.userService.findOne(this.token.sub).subscribe({
       next: (user) => {
         this.events = user.events
+        console.log(user.events);
       },
       error: (e) => console.error(e),
     })
