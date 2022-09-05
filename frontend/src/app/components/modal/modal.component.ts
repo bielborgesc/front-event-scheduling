@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { LogoutDirective } from 'src/app/directives/access.directive';
+import { Modal } from 'src/app/model/modal.model';
+import { ModalService } from 'src/app/service/modal.service';
 
 @Component({
   selector: 'app-modal',
@@ -10,18 +10,25 @@ import { LogoutDirective } from 'src/app/directives/access.directive';
 })
 export class ModalComponent implements OnInit {
 
-  constructor(
-    public activateModal: NgbActiveModal,
-    private router: Router,
-  ) { }
+  modal: Modal = this.modalService.getModal();
+  hasOpenModal: boolean = this.modalService.hasOpenModal();
 
-  ngOnInit() {
+  constructor(private modalService: ModalService, private router: Router) {}
+
+  ngOnInit(): void {}
+
+  onConfirm(){
+    this.modalService.onClickButton(this.modal.txtBtnSuccess);
+    this.modalService.close();
   }
 
-  logout(){
-    localStorage.removeItem("token");
-    this.activateModal.close();
-    this.router.navigate(['/login']);
+  onDenied(){
+    this.modalService.onClickButton(this.modal.txtBtnDenied);
+    this.modalService.close();
+  }
+
+  onClose(){
+    this.modalService.close();
   }
 
 }

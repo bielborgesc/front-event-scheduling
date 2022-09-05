@@ -18,12 +18,11 @@ import { EditEventComponent } from './views/events/edit-event/edit-event.compone
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { HttpsRequestInterceptor, Interceptor } from './interceptors/HttpsRequestInterceptor';
 import { ModalComponent } from './components/modal/modal.component';
-import { ModalEventComponent } from './components/modalEvent/modalEvent.component';
 import { NgToastModule } from 'ng-angular-popup';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LogoutDirective } from './directives/access.directive';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(localePt);
 
@@ -36,7 +35,6 @@ registerLocaleData(localePt);
     RegisterComponent,
     EditEventComponent,
     ModalComponent,
-    ModalEventComponent,
     HeaderComponent,
     FooterComponent,
     LogoutDirective,
@@ -49,7 +47,8 @@ registerLocaleData(localePt);
     HttpClientModule,
     ReactiveFormsModule,
     Interceptor,
-    NgToastModule
+    NgToastModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt-BR'},

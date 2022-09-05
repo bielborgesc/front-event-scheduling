@@ -1,12 +1,13 @@
-    <div class="card container align-items-center ">
-      <div class="card-header no-border">
-        <h5 class="card-title text-font">Tem certeza que deseja realizar essa ação?</h5>
-      </div>
-      <div class="group-button">
-        <div class="widget-49-meeting-action">
-          <button class="btn btn-outline-primary btn-sm btn-yes" (click)="this.logout()" >Sim</button>
-          <button class="btn btn-outline-secondary btn-sm btn-no" (click)="activateModal.close()" >Não</button>
-        </div>
-      </div>
-    </div>
-
+<ng-template [ngIf]="hasOpenModal">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ modal.title }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="onClose()"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ modal.contentText }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onDenied()" >{{ modal.txtBtnDenied }}</button>
+    <button type="button" class="btn btn-primary" (click)="onConfirm()">{{ modal.txtBtnSuccess}}</button>
+  </div>
+</ng-template>
