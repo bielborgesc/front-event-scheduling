@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 const baseUrl = 'http://localhost:3000/event'
@@ -10,8 +10,6 @@ const baseUrl = 'http://localhost:3000/event'
 export class EventService {
 
   constructor(private http: HttpClient) { }
-
-  emitDeletedEvent = new EventEmitter<number>();
 
   findAll(): Observable<Event[]> {
     return this.http.get<Event[]>(`${baseUrl}`);
@@ -30,7 +28,6 @@ export class EventService {
   }
 
   delete(id: number): Observable<any> {
-    this.emitDeletedEvent.emit(id);
     return this.http.delete(`${baseUrl}/${id}`);
   }
 

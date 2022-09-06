@@ -6,7 +6,7 @@ import { UserService } from '../../../service/user.service';
 import { Modal } from 'src/app/model/modal.model';
 import { NgToastService } from 'ng-angular-popup';
 import { ModalService } from 'src/app/service/modal.service';
-import { catchError, map, tap } from 'rxjs';
+import { catchError, delay, finalize, map, Observable, takeLast, tap } from 'rxjs';
 
 
 @Component({
@@ -16,7 +16,8 @@ import { catchError, map, tap } from 'rxjs';
 })
 export class EventListComponent implements OnInit {
 
-  events:Event[] | any;
+  // events:Event[] | any;
+  events$!: Observable<any>;
   token: any = decode(localStorage.getItem('token')!);
 
   modalDeleteItem: Modal = new Modal(
@@ -36,22 +37,7 @@ export class EventListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.eventService.emitDeletedEvent
-    .pipe(
-      tap(eventId => setTimeout(() => this.userService.findOne(this.token.sub).subscribe((user) => this.events = user.events), 500))
-    )
-    .subscribe();
-    this.findAllEvents();
-  }
-
-  findAllEvents(): void {
-    this.userService.findOne(this.token.sub)
-    .pipe(
-      map((user) => user.events),
-      tap((events) => this.events = events),
-      catchError(async (error) => console.error(error))
-    )
-    .subscribe()
+    this.events$ = this.eventService.findAll().pipe(delay(500))
   }
 
   editEvent(id: number): void{
@@ -63,15 +49,18 @@ export class EventListComponent implements OnInit {
     this.modalService.buttonHandler
     .pipe(
       tap((txtBtn) => {
+        console.log(txtBtn);
         if(txtBtn === this.modalDeleteItem.txtBtnSuccess){
-          this.eventService.delete(event.id).subscribe();
+          console.log(event);
+          // this.eventService.delete(event.id).subscribe();
+          this.events$ = this.eventService.findAll()
           this.toast.success({detail: "Mensagem de Sucesso", summary: "Evento excluido com sucesso", duration: 5000});
         }
         this.modalService.close();
       }),
       catchError( async (err) => this.toast.success({ detail: "Mensagem de Sucesso", summary: "Evento excluido com sucesso", duration: 5000 }))
     )
-    .subscribe()
+    .subscribe((e) => console.log("Subscribe: ", e))
   }
 
 }

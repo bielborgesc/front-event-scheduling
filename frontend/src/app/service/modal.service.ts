@@ -23,6 +23,7 @@ export class ModalService {
     this.modalService.open(ModalComponent);
   }
 
+  // Passar por output
   onClickButton(btnName: string){
     this.buttonHandler.emit(btnName);
   }

@@ -8,39 +8,48 @@
     <button class="btn btn-outline-primary btn-sm btn-new-event" routerLink="/new-event" >Novo Evento</button>
   </div>
   <div class="row">
-    <div class="col-lg-4 col-md-6" *ngFor="let event of events">
-      <div class="card card-margin">
-        <div class="card-header no-border">
-            <h5 class="card-title title-font">{{event.description}}</h5>
-        </div>
-        <div class="card-body pt-0">
-          <div class="widget-49">
-            <div class="widget-49-title-wrapper">
-              <div class="widget-49-date-primary">
-                  <span class="widget-49-date-day">{{ event.start | date: 'dd'}}</span>
-                  <span class="widget-49-date-month">{{ event.start | date: 'MMM'}}</span>
-              </div>
-              <div class="widget-49-meeting-info">
-                  <span class="widget-49-pro-title">Começa</span>
-                  <span class="widget-49-pro-title">{{ event.start | date: 'dd/MM/yyyy'}}</span>
-                  <span class="widget-49-pro-title">{{ event.start | date: 'HH:mm'}}</span>
+    <ng-container *ngIf="events$ | async as events; else loading">
+      <div class="col-lg-4 col-md-6" *ngFor="let event of events">
+        <div class="card card-margin">
+          <div class="card-header no-border">
+              <h5 class="card-title title-font">{{event.description}}</h5>
+          </div>
+          <div class="card-body pt-0">
+            <div class="widget-49">
+              <div class="widget-49-title-wrapper">
+                <div class="widget-49-date-primary">
+                    <span class="widget-49-date-day">{{ event.start | date: 'dd'}}</span>
+                    <span class="widget-49-date-month">{{ event.start | date: 'MMM'}}</span>
                 </div>
-              <div class="widget-49-meeting-info">
-                <span class="widget-49-pro-title">Termina</span>
-                <span class="widget-49-pro-title">{{ event.finish | date: 'dd/MM/yyyy'}}</span>
-                  <span class="widget-49-pro-title">{{ event.finish | date: 'HH:mm'}}</span>
+                <div class="widget-49-meeting-info">
+                    <span class="widget-49-pro-title">Começa</span>
+                    <span class="widget-49-pro-title">{{ event.start | date: 'dd/MM/yyyy'}}</span>
+                    <span class="widget-49-pro-title">{{ event.start | date: 'HH:mm'}}</span>
+                  </div>
+                <div class="widget-49-meeting-info">
+                  <span class="widget-49-pro-title">Termina</span>
+                  <span class="widget-49-pro-title">{{ event.finish | date: 'dd/MM/yyyy'}}</span>
+                    <span class="widget-49-pro-title">{{ event.finish | date: 'HH:mm'}}</span>
+                </div>
               </div>
-            </div>
-            <div class="group-button">
-              <div class="widget-49-meeting-action">
-                <button class="btn btn-outline-primary btn-sm btn-edit" (click)="editEvent(event.id)" >Editar</button>
-                <button class="btn btn-outline-secondary btn-sm btn-remove" (click)="openModal(event)" >Remover</button>
+              <div class="group-button">
+                <div class="widget-49-meeting-action">
+                  <button class="btn btn-outline-primary btn-sm btn-edit" (click)="editEvent(event.id)" >Editar</button>
+                  <button class="btn btn-outline-secondary btn-sm btn-remove" (click)="openModal(event)" >Remover</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </ng-container>
+    <ng-template #loading>
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </ng-template>
   </div>
 </div>
 
