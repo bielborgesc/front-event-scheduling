@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventService } from 'src/app/service/event.service';
 import decode from 'jwt-decode';
@@ -12,10 +12,10 @@ import { NgToastService } from 'ng-angular-popup';
 })
 export class NewEventComponent implements OnInit {
 
-  formEvent = new FormGroup({
-    description: new FormControl(''),
-    start: new FormControl(''),
-    finish: new FormControl('')
+  formEvent = new UntypedFormGroup({
+    description: new UntypedFormControl(''),
+    start: new UntypedFormControl(''),
+    finish: new UntypedFormControl('')
   })
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from 'src/app/service/event.service';
 import decode from 'jwt-decode';
@@ -12,10 +12,10 @@ import { NgToastService } from 'ng-angular-popup';
 })
 export class EditEventComponent implements OnInit {
 
-  formEventEdit = new FormGroup({
-    description: new FormControl(''),
-    start: new FormControl(''),
-    finish: new FormControl('')
+  formEventEdit = new UntypedFormGroup({
+    description: new UntypedFormControl(''),
+    start: new UntypedFormControl(''),
+    finish: new UntypedFormControl('')
   })
 
   idEvent = -1;

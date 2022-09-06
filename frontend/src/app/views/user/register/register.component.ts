@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { UserService } from '../../../service/user.service';
@@ -10,11 +10,11 @@ import { UserService } from '../../../service/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  formRegister = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    confirmPassword: new FormControl(''),
+  formRegister = new UntypedFormGroup({
+    name: new UntypedFormControl(''),
+    email: new UntypedFormControl(''),
+    password: new UntypedFormControl(''),
+    confirmPassword: new UntypedFormControl(''),
   })
 
   constructor(
