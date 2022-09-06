@@ -23,6 +23,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LogoutDirective } from './directives/access.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 registerLocaleData(localePt);
 
@@ -48,7 +49,8 @@ registerLocaleData(localePt);
     ReactiveFormsModule,
     Interceptor,
     NgToastModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ModalModule.forRoot()
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt-BR'},

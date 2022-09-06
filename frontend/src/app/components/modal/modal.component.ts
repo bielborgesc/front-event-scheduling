@@ -1,8 +1,6 @@
 import { Component, Input, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
-import { Modal } from 'src/app/model/modal.model';
-import { ModalService } from 'src/app/service/modal.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
@@ -16,23 +14,24 @@ export class ModalComponent implements OnInit {
   @Input() cancelTxt: string = "Cancelar";
   @Input() okTxt: string = "Ok";
 
-  modal: Modal = this.modalService.getModal();
-  hasOpenModal: boolean = this.modalService.hasOpenModal();
+  confirmResult!: Subject<boolean>;
 
-  constructor(private modalService: ModalService, private router: Router, public bsModalRef: BsModalRef){}
+  constructor(public bsModalRef: BsModalRef){}
 
-  ngOnInit(): void {}
-
-  onConfirm(){
-
+  ngOnInit(): void {
+    this.confirmResult = new Subject();
   }
 
-  onDenied(){
-    this.modalService.onClickButton(this.modal.txtBtnDenied);
-    this.modalService.close();
+  onConfirm(){
+    this.confirmAndClose(true);
   }
 
   onClose(){
+    this.confirmAndClose(false);
+  }
+
+  private confirmAndClose(value: boolean){
+    this.confirmResult.next(value);
     this.bsModalRef.hide();
   }
 

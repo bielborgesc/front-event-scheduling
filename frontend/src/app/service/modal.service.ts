@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ModalComponent } from '../components/modal/modal.component';
 import { Modal } from '../model/modal.model';
 
@@ -9,36 +10,18 @@ import { Modal } from '../model/modal.model';
 export class ModalService {
 
   constructor(
-    private modalService: NgbModal,
+    private modalService: BsModalService
   ) { }
 
-  buttonHandler = new EventEmitter<string>();
+  showConfirm(title: string, msg: string, okTxt?: string, cancelTxt?: string){
+    const bsModalRef: BsModalRef = this.modalService.show(ModalComponent);
+    bsModalRef.content.title = title;
+    bsModalRef.content.msg = msg;
+    if(okTxt) bsModalRef.content.okText = okTxt;
+    if(cancelTxt) bsModalRef.content.cancelTxt = cancelTxt;
 
-  modalIsOpen: boolean = false;
-  modal!: Modal;
+    return (<ModalComponent>bsModalRef.content).confirmResult;
 
-  open(modal: Modal){
-    this.modal = modal;
-    this.modalIsOpen = true;
-    this.modalService.open(ModalComponent);
-  }
-
-  // Passar por output
-  onClickButton(btnName: string){
-    this.buttonHandler.emit(btnName);
-  }
-
-  close(){
-    this.modalIsOpen = false;
-    this.modalService.dismissAll(ModalComponent);
-  }
-
-  hasOpenModal(){
-    return this.modalIsOpen;
-  }
-
-  getModal(){
-    return this.modal;
   }
 
 }
