@@ -1,8 +1,6 @@
 import { EventEmitter, Injectable} from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ModalComponent } from '../components/modal/modal.component';
-import { Modal } from '../model/modal.model';
 
 @Injectable({
   providedIn: 'root'

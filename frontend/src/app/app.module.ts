@@ -7,7 +7,6 @@ import { EventListComponent } from './views/events/event-list/event-list.compone
 import { NewEventComponent } from './views/events/new-event/new-event.component';
 import { LoginComponent } from './views/user/login/login.component';
 import { RegisterComponent } from './views/user/register/register.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LOCALE_ID } from '@angular/core';
@@ -43,7 +42,6 @@ registerLocaleData(localePt);
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
