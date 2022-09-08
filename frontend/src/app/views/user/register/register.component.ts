@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { UserService } from '../../../service/user.service';
@@ -10,11 +10,11 @@ import { UserService } from '../../../service/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  formRegister = new UntypedFormGroup({
-    name: new UntypedFormControl(''),
-    email: new UntypedFormControl(''),
-    password: new UntypedFormControl(''),
-    confirmPassword: new UntypedFormControl(''),
+  formRegister = new FormGroup({
+    name: new FormControl('',[Validators.minLength(3), Validators.required]),
+    email: new FormControl('', [Validators.email, Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/)]),
+    confirmPassword: new FormControl('', [Validators.required]),
   })
 
   constructor(
@@ -26,24 +26,35 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  verifyValidTouched(inputName: any) {
+    return !this.formRegister.get(inputName)!.valid && this.formRegister.get(inputName)!.touched;
+  }
+
+  setCssErro(inputName: any) {
+    return {
+      'is-invalid': this.verifyValidTouched(inputName),
+    };
+  }
+
   create(): void{
-    const user = {
-      name: this.formRegister.value.name,
-      email: this.formRegister.value.email,
-      password: this.formRegister.value.password
-    }
-    const router = this.router;
-    const toast = this.toast;
-    this.userService.create(user)
-    .subscribe({
-      next(value) {
-        router.navigate(['/login']);
-        toast.success({detail: "Mensagem de Sucesso", summary: "Conta criada com sucesso", duration: 5000})
-      },
-      error(err) {
-        toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
-      }
-    })
+    console.log(this.formRegister);
+    // const user = {
+    //   name: this.formRegister.value.name,
+    //   email: this.formRegister.value.email,
+    //   password: this.formRegister.value.password
+    // }
+    // const router = this.router;
+    // const toast = this.toast;
+    // this.userService.create(user)
+    // .subscribe({
+    //   next(value) {
+    //     router.navigate(['/login']);
+    //     toast.success({detail: "Mensagem de Sucesso", summary: "Conta criada com sucesso", duration: 5000})
+    //   },
+    //   error(err) {
+    //     toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
+    //   }
+    // })
   }
 
 }

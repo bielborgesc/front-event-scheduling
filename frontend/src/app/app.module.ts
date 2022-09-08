@@ -23,6 +23,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LogoutDirective } from './directives/access.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { MsgValidationErrorComponent } from './components/msg-validation-error/msg-validation-error.component';
 
 registerLocaleData(localePt);
 
@@ -38,6 +39,7 @@ registerLocaleData(localePt);
     HeaderComponent,
     FooterComponent,
     LogoutDirective,
+    MsgValidationErrorComponent,
   ],
   imports: [
     BrowserModule,

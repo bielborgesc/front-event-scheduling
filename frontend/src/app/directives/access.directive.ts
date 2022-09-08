@@ -1,4 +1,5 @@
 import { Directive, Renderer2, ElementRef, EventEmitter, OnInit } from '@angular/core';
+import { tap } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 
 @Directive({
@@ -12,9 +13,9 @@ export class LogoutDirective implements OnInit{
   ) {}
 
   ngOnInit() {
-    this.auth.emitAuthenticationStatus.subscribe(
-      status => this.showButtonLogout(status),
-    );
+    this.auth.emitAuthenticationStatus.pipe(
+      tap(status => this.showButtonLogout(status))
+    ).subscribe();
   }
 
   showButtonLogout(authenticated: boolean) {

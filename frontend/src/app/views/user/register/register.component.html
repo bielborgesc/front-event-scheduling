@@ -7,26 +7,43 @@
             <h2 class="card-title text-center mb-5 fw-light title-font title-form">Registrar</h2>
             <form [formGroup]="formRegister" (ngSubmit)="create()">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="name" formControlName="name" placeholder="Seu Nome">
+                <input type="text" class="form-control" id="name" formControlName="name" placeholder="Seu Nome" [ngClass]="setCssErro('name')">
+                <app-msg-validation-error
+                  [showError]="verifyValidTouched('name')"
+                  msgError="Nome é obrigatório" >
+                </app-msg-validation-error>
                 <label for="floatingInput">Nome</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@exemplo.com">
+                <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@exemplo.com" [ngClass]="setCssErro('email')">
+                <app-msg-validation-error
+                  [showError]="verifyValidTouched('email')"
+                  msgError="Email é obrigatório" >
+                </app-msg-validation-error>
                 <label for="floatingInput">Email</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Senha">
+                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Senha" [ngClass]="setCssErro('password')">
+                <app-msg-validation-error
+                  [showError]="verifyValidTouched('password')"
+                  msgError="Senha é obrigatório" >
+                </app-msg-validation-error>
                 <label for="password">Senha</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="confirm-password" formControlName="confirmPassword" placeholder="Digite a senha novamente">
+                <input type="password" class="form-control" id="confirm-password" formControlName="confirmPassword" placeholder="Digite a senha novamente" [ngClass]="setCssErro('confirmPassword')">
+                <app-msg-validation-error
+                  [showError]="verifyValidTouched('confirmPassword')"
+                  msgError="Confirmar senha é obrigatório" >
+                </app-msg-validation-error>
                 <label for="confirm-password">Confirmar Senha</label>
               </div>
               <div class="d-grid">
-                <button class="btn btn-outline-primary register-btn text-uppercase fw-bold" (click)="create()" type="submit">Registrar</button>
+                <button class="btn btn-outline-primary register-btn text-uppercase fw-bold" type="submit">Registrar</button>
               </div>
+              <br>
               <div class="d-grid">
-                <button class="btn btn-outline-primary login-btn text-uppercase fw-bold" routerLink="/login" type="submit">Login</button>
+                <a class="" routerLink="/login" type="button">Já tenho uma conta!</a>
               </div>
             </form>
           </div>
