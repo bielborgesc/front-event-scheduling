@@ -10,7 +10,7 @@
                 <input type="text" class="form-control" id="name" formControlName="name" placeholder="Seu Nome" [ngClass]="setCssErro('name')">
                 <app-msg-validation-error
                   [showError]="verifyValidTouched('name')"
-                  msgError="Nome é obrigatório" >
+                  msgError="Nome é obrigatório e deve conter no minímo 8 caracteres" >
                 </app-msg-validation-error>
                 <label for="floatingInput">Nome</label>
               </div>
@@ -18,7 +18,7 @@
                 <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@exemplo.com" [ngClass]="setCssErro('email')">
                 <app-msg-validation-error
                   [showError]="verifyValidTouched('email')"
-                  msgError="Email é obrigatório" >
+                  msgError="Email é obrigatório e deve ser um email válido" >
                 </app-msg-validation-error>
                 <label for="floatingInput">Email</label>
               </div>
@@ -26,7 +26,7 @@
                 <input type="password" class="form-control" id="password" formControlName="password" placeholder="Senha" [ngClass]="setCssErro('password')">
                 <app-msg-validation-error
                   [showError]="verifyValidTouched('password')"
-                  msgError="Senha é obrigatório" >
+                  msgError="Senha é obrigatório e deve conter no mínimo 1 letra maiúscula, 1 letra maiúscula, 1 número e um caractere especial" >
                 </app-msg-validation-error>
                 <label for="password">Senha</label>
               </div>
@@ -34,7 +34,7 @@
                 <input type="password" class="form-control" id="confirm-password" formControlName="confirmPassword" placeholder="Digite a senha novamente" [ngClass]="setCssErro('confirmPassword')">
                 <app-msg-validation-error
                   [showError]="verifyValidTouched('confirmPassword')"
-                  msgError="Confirmar senha é obrigatório" >
+                  msgError="Confirmar senha é obrigatório e ambas senhas devem ser iguais" >
                 </app-msg-validation-error>
                 <label for="confirm-password">Confirmar Senha</label>
               </div>

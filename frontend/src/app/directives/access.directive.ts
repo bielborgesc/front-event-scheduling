@@ -13,9 +13,7 @@ export class LogoutDirective implements OnInit{
   ) {}
 
   ngOnInit() {
-    this.auth.emitAuthenticationStatus.pipe(
-      tap(status => this.showButtonLogout(status))
-    ).subscribe();
+    this.auth.emitAuthenticationStatus.subscribe(status => this.showButtonLogout(status));
   }
 
   showButtonLogout(authenticated: boolean) {

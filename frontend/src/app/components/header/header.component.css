@@ -24,6 +24,10 @@
   box-shadow: 0 2px 7px 0 rgba(0,0,0,.5);
 }
 
+.perfil{
+  display: none;
+}
+
 .perfil button{
   background-color: var(--color-blue);
   color: var(--color-white);

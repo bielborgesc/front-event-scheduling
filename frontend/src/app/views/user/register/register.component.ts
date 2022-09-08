@@ -37,24 +37,23 @@ export class RegisterComponent implements OnInit {
   }
 
   create(): void{
-    console.log(this.formRegister);
-    // const user = {
-    //   name: this.formRegister.value.name,
-    //   email: this.formRegister.value.email,
-    //   password: this.formRegister.value.password
-    // }
-    // const router = this.router;
-    // const toast = this.toast;
-    // this.userService.create(user)
-    // .subscribe({
-    //   next(value) {
-    //     router.navigate(['/login']);
-    //     toast.success({detail: "Mensagem de Sucesso", summary: "Conta criada com sucesso", duration: 5000})
-    //   },
-    //   error(err) {
-    //     toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
-    //   }
-    // })
+    const user = {
+      name: this.formRegister.value.name,
+      email: this.formRegister.value.email,
+      password: this.formRegister.value.password
+    }
+    const router = this.router;
+    const toast = this.toast;
+    this.userService.create(user)
+    .subscribe({
+      next(value) {
+        router.navigate(['/login']);
+        toast.success({detail: "Mensagem de Sucesso", summary: "Conta criada com sucesso", duration: 5000})
+      },
+      error(err) {
+        toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
+      }
+    })
   }
 
 }
