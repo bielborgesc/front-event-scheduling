@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compareSync } from 'bcrypt';
+import { MessagesHelper } from 'src/helpers/messages.helper';
 import { User } from 'src/modules/user/user.entity';
 import { UserService } from 'src/modules/user/user.service';
 
@@ -10,24 +11,20 @@ export class AuthService {
 
   async login(user){
     const payload = { sub: user.id, email: user.email };
-
     return{
       token: this.jwtService.sign(payload)
     }
   }
 
-  async validateUser(email: string, password:string){
+  async validateUser(email: string, password: string){
     let user: User;
     try {
       user = await this.userService.findOneOrFail({where: {email: email}})
-      
-    } catch (error) {
-      return null;
+      const isPasswordValid = compareSync(password, user.password);
+      if(!isPasswordValid) throw new Error()
+      return user;
+    } catch (err) {
+      throw new HttpException({status: HttpStatus.UNAUTHORIZED, error: MessagesHelper.PASSWORD_OR_EMAIL_INVALID}, HttpStatus.UNAUTHORIZED);
     }
-
-    const isPasswordValid = compareSync(password, user.password);
-    if(!isPasswordValid) return null
-
-    return user;
   }
 }
