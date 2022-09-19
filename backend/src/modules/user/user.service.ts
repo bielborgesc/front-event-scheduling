@@ -4,6 +4,7 @@ import { FindOneOptions, Repository } from 'typeorm';
 import { User } from './user.entity';
 import { UpdateUserDto } from './../dto/update-user.dto';
 import { CreateUserDto } from '../dto/create-user.dto';
+import { MessagesHelper } from 'src/helpers/messages.helper';
 
 @Injectable()
 export class UserService {
@@ -13,13 +14,14 @@ export class UserService {
   ) {}
 
   async create(data: CreateUserDto) {
-    const user = this.userRepository.create(data);
-    return await this.userRepository.save(user).catch(() => {
-      throw new HttpException({
-        status: HttpStatus.UNPROCESSABLE_ENTITY,
-        error: 'E-mail already registered',
-      }, HttpStatus.UNPROCESSABLE_ENTITY);
-    });
+    try {
+      delete data.confirmPassword;
+      const user = this.userRepository.create(data);
+      return await this.userRepository.save(user)
+    } catch (err) {
+      throw new HttpException({statusCode: HttpStatus.UNPROCESSABLE_ENTITY, error: [MessagesHelper.EMAIL_ALREADY_EXISTS]}, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
   }
 
   findAll(): Promise<User[]> {

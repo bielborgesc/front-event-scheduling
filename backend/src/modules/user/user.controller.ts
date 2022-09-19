@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Param,
   Post,
   Put,
@@ -22,7 +23,7 @@ export class UserController {
 
   @Post()
   create(@Body() body: CreateUserDto): Promise<User> {
-    return this.userService.create(body);
+    return this.userService.create(body)
   }
 
   @Get()

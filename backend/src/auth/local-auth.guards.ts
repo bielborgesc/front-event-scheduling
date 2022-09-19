@@ -9,7 +9,10 @@ export class LocalAuthGuard extends AuthGuard('local') {
   }
   handleRequest(err: any, user: any, info: any, context: any, status: any) {
     if (err || !user) {
-      throw new HttpException({status: HttpStatus.UNAUTHORIZED, error: MessagesHelper.PASSWORD_OR_EMAIL_INVALID}, HttpStatus.UNAUTHORIZED);
+      throw new HttpException({
+        statusCode: HttpStatus.UNAUTHORIZED, 
+        message: [MessagesHelper.PASSWORD_OR_EMAIL_INVALID], 
+      }, HttpStatus.UNAUTHORIZED);
     }
     return user;
   }
