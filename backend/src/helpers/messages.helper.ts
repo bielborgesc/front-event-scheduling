@@ -16,5 +16,5 @@ export const MessagesHelper = {
   MIN_LENGTH_NAME_ERROR:
     'O campo nome deve conter no minimo 2 caracateres',
   PASSWORD_MUST_BE_THE_SAME:
-    'As senhas precisam ser iguais'
+    'As senhas precisam ser iguais',
 };
