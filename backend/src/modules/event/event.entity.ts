@@ -1,20 +1,22 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm';
 import { User } from '../user/user.entity';
 
 @Entity()
 export class Event {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    description: string;
+  @Column()
+  description: string;
 
-    @Column()
-    start: Date;
+  @Column()
+  start: Date;
 
-    @Column()
-    finish: Date;
+  @Column()
+  finish: Date;
 
-    @ManyToOne(() => User, user => user.events, {onDelete: 'CASCADE'})
-    user: User;
+  @ManyToMany(() => User, {eager: true})
+  @JoinTable()
+  users: User[];
+
 }

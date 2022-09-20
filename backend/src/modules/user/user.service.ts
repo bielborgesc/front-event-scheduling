@@ -32,7 +32,7 @@ export class UserService {
 
   async findOneOrFail(options: FindOneOptions<User>): Promise<User> {
     try {
-      return await this.userRepository.findOneOrFail(options);      
+      return await this.userRepository.findOneOrFail(options);    
     } catch (err) {
       throw new HttpException({statusCode: HttpStatus.NOT_FOUND, message: [MessagesHelper.USER_NOT_FOUND]}, HttpStatus.NOT_FOUND);
     }

@@ -17,4 +17,8 @@ export const MessagesHelper = {
     'O campo nome deve conter no minimo 2 caracateres',
   PASSWORD_MUST_BE_THE_SAME:
     'As senhas precisam ser iguais',
+  EVENT_NEED_USERS:
+    'O evento precisa de no minímo 1 usuário',
+  DESCRIPTION_IS_NOT_EMPTY:
+    'A descrição não pode ser vazia'
 };
