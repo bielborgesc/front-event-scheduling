@@ -15,8 +15,4 @@ export class Event {
   @Column()
   finish: Date;
 
-  @ManyToMany(() => User, {eager: true})
-  @JoinTable()
-  users: User[];
-
 }

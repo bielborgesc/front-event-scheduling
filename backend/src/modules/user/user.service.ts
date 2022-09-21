@@ -25,9 +25,13 @@ export class UserService {
   }
 
   findAll(): Promise<User[]> {
-    return this.userRepository.find({ 
-      select: ['id', 'name', 'email']
-    });
+    try {
+      return this.userRepository.find({ 
+        select: ['name', 'email']
+      });
+    } catch (err) {
+      throw new HttpException({statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: [MessagesHelper.GENERIC_ERROR]}, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   async findOneOrFail(options: FindOneOptions<User>): Promise<User> {

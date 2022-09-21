@@ -5,9 +5,6 @@ import { User } from "../user/user.entity";
 
 export class UpdateEventDto {  
   @IsNotEmpty()
-  user: User;
-
-  @IsNotEmpty()
   description: string;
   
   @IsNotEmpty()

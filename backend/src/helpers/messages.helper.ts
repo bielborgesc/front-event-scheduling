@@ -20,5 +20,11 @@ export const MessagesHelper = {
   EVENT_NEED_USERS:
     'O evento precisa de no minímo 1 usuário',
   DESCRIPTION_IS_NOT_EMPTY:
-    'A descrição não pode ser vazia'
+    'A descrição não pode ser vazia',
+  GENERIC_ERROR:
+    'Houve um erro interno, tente novamente mais tarde',
+  EVENT_NOT_FOUND:
+    'Evento não encontrado',
+  DATE_MISMATCH:
+    'A data de início e fim deve ser posterior a data de hoje, ambas as datas não podem ser iguais e a data de inicio deve ser anterior a data de fim',
 };
