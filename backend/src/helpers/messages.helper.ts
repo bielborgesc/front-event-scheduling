@@ -24,7 +24,7 @@ export const MessagesHelper = {
   GENERIC_ERROR:
     'Houve um erro interno, tente novamente mais tarde',
   EVENT_NOT_FOUND:
-    'Evento não encontrado',
+    'Evento(s) não encontrado(s)',
   DATE_MISMATCH:
     'A data de início e fim deve ser posterior a data de hoje, ambas as datas não podem ser iguais e a data de inicio deve ser anterior a data de fim',
 };

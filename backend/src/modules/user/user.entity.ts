@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, BeforeInsert, ManyToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, BeforeInsert, JoinColumn} from 'typeorm';
 import { hashSync } from 'bcrypt';
+import { Event } from '../event/event.entity';
 
 @Entity()
 export class User {
@@ -19,5 +20,9 @@ export class User {
   hashPassword(){
     this.password = hashSync(this.password, 10)
   }
+
+  @OneToMany(() => Event, (event) => event.user)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  events: Event[]
 
 }

@@ -39,6 +39,11 @@ export class EventController {
     return this.eventService.findOneOrFail({ where: { id: id } });
   }
 
+  @Get('/user/:idUser')
+  findOneByIdUser(@Param('idUser') idUser: string): Promise<Event[]> {
+    return this.eventService.findByOrFail({ where: { user: {id: idUser} } });
+  }
+
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: number) {
