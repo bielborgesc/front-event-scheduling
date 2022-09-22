@@ -14,21 +14,21 @@ export class EventService {
     ) {}
 
     private validateDate(data: CreateEventDto | UpdateEventDto): boolean{
-      const today = new Date(Date.now()).toISOString();
-      const start = new Date(data.start).toISOString();
-      const finish = new Date(data.finish).toISOString();
+      const { DateTime } = require("luxon");
+      const today = DateTime.now().setZone('America/Sao_Paulo')
+      const start = DateTime.fromISO(data.start, { zone: "America/Sao_Paulo" });
+      const finish = DateTime.fromISO(data.finish, { zone: "America/Sao_Paulo" });
 
-      if(start < today) return false;
-      if(finish < today) return false;
-      if(finish < start) return false;
-      if(finish === start) return false;
+      if(start.diff(today).values.milliseconds <= 0) return false;
+      if(finish.diff(today).values.milliseconds <= 0) return false;
+      if(finish.diff(start).values.milliseconds <= 0) return false;
 
       return true;
     }
 
     async create(data: CreateEventDto) {
       try {
-        // if(!this.validateDate(data)) throw new Error();
+        if(!this.validateDate(data)) throw new Error();
         return await this.eventRepository.save(data);
       } catch (err) {
         throw new HttpException({statusCode: HttpStatus.BAD_REQUEST, message: [MessagesHelper.DATE_MISMATCH]}, HttpStatus.BAD_REQUEST);
@@ -72,7 +72,7 @@ export class EventService {
       try {
         const event = await this.eventRepository.findOneOrFail({where: {id: id}});
         this.eventRepository.merge(event, data);
-        // if(!this.validateDate(data)) throw new Error();
+        if(!this.validateDate(data)) throw new Error();
         return this.eventRepository.save(event);
       } catch (err) {
         if(err instanceof EntityNotFoundError) throw new HttpException({statusCode: HttpStatus.NOT_FOUND, message: [MessagesHelper.EVENT_NOT_FOUND]}, HttpStatus.NOT_FOUND);
