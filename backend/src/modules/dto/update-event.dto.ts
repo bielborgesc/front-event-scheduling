@@ -3,7 +3,7 @@ import { MessagesHelper } from "src/helpers/messages.helper";
 import { RegExHelper } from "src/helpers/regex.helper";
 
 export class UpdateEventDto {  
-  @IsNotEmpty()
+  @IsNotEmpty({ message: MessagesHelper.DESCRIPTION_IS_NOT_EMPTY })
   description: string;
   
   @IsNotEmpty()

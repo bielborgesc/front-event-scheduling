@@ -27,4 +27,12 @@ export const MessagesHelper = {
     'Evento(s) não encontrado(s)',
   DATE_MISMATCH:
     'A data de início e fim deve ser posterior a data de hoje, ambas as datas não podem ser iguais e a data de inicio deve ser anterior a data de fim',
+  USER_IS_NOT_EMPTY: 
+    'Usuário não pode ser vazio',
+  EVENT_IS_NOT_EMPTY:
+    'Event não pode ser vazio',
+  STATUS_IS_NOT_EMPTY:
+    'Status não pode ser vazio',
+  STATUS_IS_NOT_VALID:
+    'Defina o Status como: PENDING, REFUSED ou ACCEPT',
 };

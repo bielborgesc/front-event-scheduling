@@ -8,7 +8,7 @@ export class Invitation {
   id: number;
 
   @Column()
-  statust: string;
+  status: string;
 
   @ManyToOne(() => Event, (event) => event.invitation, { cascade: true, eager: true })
   event: Event;
