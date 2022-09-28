@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
+import { catchError, tap } from 'rxjs';
+import { CustomValidator } from 'src/app/validators/custom.validator';
 import { UserService } from '../../../service/user.service';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -15,7 +18,8 @@ export class RegisterComponent implements OnInit {
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/)]),
     confirmPassword: new FormControl('', [Validators.required]),
-  })
+  }, [CustomValidator.MatchValidator('password', 'confirmPassword')]
+  )
 
   constructor(
     private userService: UserService,
@@ -27,7 +31,16 @@ export class RegisterComponent implements OnInit {
   }
 
   verifyValidTouched(inputName: any) {
-    return !this.formRegister.get(inputName)!.valid && this.formRegister.get(inputName)!.touched;
+    return !this.formRegister.get(inputName)!.valid && this.formRegister.get(inputName)!.touched && this.formRegister.getError('mismatch') ;
+  }
+
+  getPasswordMatchError() {
+    console.log(this.formRegister.getError('mismatch') &&
+    this.formRegister.get('confirmPassword')?.touched)
+    return (
+      this.formRegister.getError('mismatch') &&
+      this.formRegister.get('confirmPassword')?.touched
+    );
   }
 
   setCssErro(inputName: any) {
@@ -40,20 +53,18 @@ export class RegisterComponent implements OnInit {
     const user = {
       name: this.formRegister.value.name,
       email: this.formRegister.value.email,
-      password: this.formRegister.value.password
+      password: this.formRegister.value.password,
+      confirmPassword: this.formRegister.value.confirmPassword
     }
-    const router = this.router;
-    const toast = this.toast;
     this.userService.create(user)
-    .subscribe({
-      next(value) {
-        router.navigate(['/login']);
-        toast.success({detail: "Mensagem de Sucesso", summary: "Conta criada com sucesso", duration: 5000})
-      },
-      error(err) {
-        toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
-      }
-    })
+    .pipe(
+      tap( (value) => {
+        this.router.navigate(['/login']);
+        this.toast.success({detail: "Mensagem de Sucesso", summary: "Conta criada com sucesso", duration: 5000})
+      }),
+      catchError(async (err) => this.toast.error({detail: "Mensagem de Erro", summary: err.error.message, duration: 5000}))
+    )
+    .subscribe()
   }
 
 }

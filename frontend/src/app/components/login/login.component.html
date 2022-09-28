@@ -1,0 +1,29 @@
+<div class="login">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card border-0 shadow rounded-3 my-5">
+          <div class="card-body p-4 p-sm-5">
+            <h2 class="card-title text-center mb-5 fw-light title-font title-form">Login</h2>
+            <form [formGroup]="formLogin" (ngSubmit)="login()">
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" formControlName="email" placeholder="name@example.com">
+                <label for="floatingInput">Email</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingPassword" formControlName="password" placeholder="Password">
+                <label for="floatingPassword">Senha</label>
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-outline-primary login-btn text-uppercase fw-bold" (click)="login()" type="submit">Login</button>
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-outline-primary register-btn text-uppercase fw-bold" routerLink="/registrar" type="submit">Registrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

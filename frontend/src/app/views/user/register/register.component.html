@@ -10,7 +10,7 @@
                 <input type="text" class="form-control" id="name" formControlName="name" placeholder="Seu Nome" [ngClass]="setCssErro('name')">
                 <app-msg-validation-error
                   [showError]="verifyValidTouched('name')"
-                  msgError="Nome é obrigatório e deve conter no minímo 8 caracteres" >
+                  msgError="Nome é obrigatório e deve conter no minímo 3 caracteres" >
                 </app-msg-validation-error>
                 <label for="floatingInput">Nome</label>
               </div>
@@ -33,7 +33,7 @@
               <div class="form-floating mb-3">
                 <input type="password" class="form-control" id="confirm-password" formControlName="confirmPassword" placeholder="Digite a senha novamente" [ngClass]="setCssErro('confirmPassword')">
                 <app-msg-validation-error
-                  [showError]="verifyValidTouched('confirmPassword')"
+                  [showError]="getPasswordMatchError()"
                   msgError="Confirmar senha é obrigatório e ambas senhas devem ser iguais" >
                 </app-msg-validation-error>
                 <label for="confirm-password">Confirmar Senha</label>

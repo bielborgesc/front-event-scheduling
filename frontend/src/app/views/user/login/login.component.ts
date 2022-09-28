@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from '../../../service/user.service';
 import { NgToastService} from 'ng-angular-popup';
-import { User } from '../../../model/user.model';
+import { tap, catchError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +14,8 @@ import { User } from '../../../model/user.model';
 export class LoginComponent implements OnInit {
 
   formLogin = new UntypedFormGroup({
-    email: new UntypedFormControl('borges@dev.com'),
-    password: new UntypedFormControl('@Gabriel05'),
+    email: new UntypedFormControl(),
+    password: new UntypedFormControl(),
   })
 
   constructor(
@@ -32,18 +32,15 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void{
-    const router = this.router;
-    const toast = this.toast;
     this.userService.login(this.formLogin.value)
-      .subscribe({
-        next(value) {
+      .pipe(
+        tap((value) => {
           localStorage.setItem('token', value.token);
-          router.navigate(['']);
-          toast.success({detail: "Mensagem de Sucesso", summary: "Login realizado com sucesso", duration: 5000})
-        },
-        error(err) {
-          toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
-        },
-      })
+          this.router.navigate(['']);
+          this.toast.success({detail: "Mensagem de Sucesso", summary: "Login realizado com sucesso", duration: 5000})
+        }),
+        catchError(async (err) => this.toast.error({detail: "Mensagem de Erro", summary: err.error.message, duration: 5000}))
+      )
+      .subscribe()
   }
 }

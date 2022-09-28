@@ -15,7 +15,6 @@ export class CreateUserDto{
   @Matches(RegExHelper.password, {message: MessagesHelper.PASSWORD_VALID})
   password: string;
 
-  @IsNotEmpty({ message: MessagesHelper.NAME_IS_NOT_EMPTY })
   @Match('password', {message: MessagesHelper.PASSWORD_MUST_BE_THE_SAME})
   confirmPassword: string;
   
