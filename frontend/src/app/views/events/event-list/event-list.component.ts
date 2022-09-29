@@ -30,9 +30,9 @@ export class EventListComponent implements OnInit {
   }
 
   onRefresh() {
-    this.events$ = this.eventService.findAll().pipe(
+    this.events$ = this.eventService.findAllByUser(this.token.sub).pipe(
       catchError( async (err) => {
-        this.toast.success({detail: "Mensagem de Sucesso", summary: "Evento excluido com sucesso", duration: 5000});
+        this.toast.error({detail: "Mensagem de Erro", summary: err.error.message, duration: 5000})
         return EMPTY;
       })
     );
@@ -48,16 +48,12 @@ export class EventListComponent implements OnInit {
       .pipe(
         take(1),
         switchMap(async (result) => result ? this.eventService.delete(id).subscribe() : EMPTY),
-        delay(500)
+        delay(500),
+        tap(() => this.onRefresh()),
+        // Success ao excluir
+        catchError(async (err) => this.toast.error({detail: "Mensagem de Erro", summary: err.error.message, duration: 5000})),
       )
-      .subscribe({
-        next: () => {
-          this.onRefresh()
-        },
-        error: () => {
-          this.toast.success({detail: "Mensagem de Sucesso", summary: "Evento excluido com sucesso", duration: 5000});
-        }
-      })
+      .subscribe()
   }
 
 }

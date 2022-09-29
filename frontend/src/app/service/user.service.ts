@@ -24,5 +24,20 @@ export class UserService {
     return this.http.get(`${baseUrl}/user/${id}`)
   }
 
+  findAll(id: string): Observable<any> {
+    return this.http.get(`${baseUrl}/user/listar`)
+  }
+
+  findOneByEmail(email: string): Observable<any> {
+    return this.http.get(`${baseUrl}/user?email=${email}`)
+  }
+
+  update(id: string, objAtt: any): Observable<any> {
+    return this.http.put(`${baseUrl}/user/${id}`, objAtt)
+  }
+
+  delete(id: string): Observable<any> {
+    return this.http.delete(`${baseUrl}/user/${id}`)
+  }
 
 }
