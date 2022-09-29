@@ -31,21 +31,25 @@ export class RegisterComponent implements OnInit {
   }
 
   verifyValidTouched(inputName: any) {
-    return !this.formRegister.get(inputName)!.valid && this.formRegister.get(inputName)!.touched && this.formRegister.getError('mismatch') ;
+    return !this.formRegister.get(inputName)!.valid && this.formRegister.get(inputName)!.touched ;
   }
 
   getPasswordMatchError() {
-    console.log(this.formRegister.getError('mismatch') &&
-    this.formRegister.get('confirmPassword')?.touched)
     return (
-      this.formRegister.getError('mismatch') &&
-      this.formRegister.get('confirmPassword')?.touched
+      (this.formRegister.getError('mismatch') || this.formRegister.get('confirmPassword')?.value === "" )&&
+      this.formRegister.get('confirmPassword')!.touched
     );
   }
 
   setCssErro(inputName: any) {
     return {
       'is-invalid': this.verifyValidTouched(inputName),
+    };
+  }
+
+  setCssErroConfirmPassword() {
+    return {
+      'is-invalid': !!this.getPasswordMatchError(),
     };
   }
 

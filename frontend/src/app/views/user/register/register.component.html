@@ -31,7 +31,7 @@
                 <label for="password">Senha</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="confirm-password" formControlName="confirmPassword" placeholder="Digite a senha novamente" [ngClass]="setCssErro('confirmPassword')">
+                <input type="password" class="form-control" id="confirm-password" formControlName="confirmPassword" placeholder="Digite a senha novamente" [ngClass]="setCssErroConfirmPassword()">
                 <app-msg-validation-error
                   [showError]="getPasswordMatchError()"
                   msgError="Confirmar senha é obrigatório e ambas senhas devem ser iguais" >
