@@ -6,6 +6,7 @@ import { EventListComponent } from './views/events/event-list/event-list.compone
 import { LoginComponent } from './views/user/login/login.component';
 import { NewEventComponent } from './views/events/new-event/new-event.component';
 import { RegisterComponent } from './views/user/register/register.component';
+import { InvitationsComponent } from './views/invitations/invitations.component';
 
 const routes: Routes = [
 
@@ -17,6 +18,11 @@ const routes: Routes = [
   {
     path: 'edit-event/:id',
     component: EditEventComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'invitations/:idEvent',
+    component: InvitationsComponent,
     canActivate: [AuthGuardService]
   },
   {

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from 'src/app/service/event.service';
-import decode from 'jwt-decode';
 import { NgToastService } from 'ng-angular-popup';
 import { catchError, tap } from 'rxjs';
 
@@ -19,7 +18,7 @@ export class EditEventComponent implements OnInit {
     finish: new UntypedFormControl('')
   })
 
-  idEvent = -1;
+  idEvent: number = -1;
 
   constructor(
     private eventService: EventService,
@@ -50,7 +49,7 @@ export class EditEventComponent implements OnInit {
   }
 
   update(): void{
-    
+
     const event = {
       description: this.formEventEdit.value.description,
       start: this.formEventEdit.value.start,

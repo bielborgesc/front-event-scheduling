@@ -42,6 +42,10 @@ export class EventListComponent implements OnInit {
     this.router.navigate([`/edit-event/${id}`], {relativeTo: this.activatedRoute})
   }
 
+  invitationsEvent(idEvent: any) {
+    this.router.navigate([`/invitations/${idEvent}`], {relativeTo: this.activatedRoute})
+  }
+
   deleteEvent(id: number): void {
     const result$ = this.modalService.showConfirm("Confrimação", "Tem certeza que deseja apagar o evento?");
     result$.asObservable()
