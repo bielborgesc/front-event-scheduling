@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import decode from 'jwt-decode';
 import { NgToastService } from 'ng-angular-popup';
 import { ModalService } from 'src/app/service/modal.service';
-import { catchError, delay, EMPTY, Observable, switchMap, take, tap } from 'rxjs';
+import { catchError, delay, EMPTY, finalize, Observable, switchMap, take, tap } from 'rxjs';
 
 
 @Component({
@@ -47,11 +47,20 @@ export class EventListComponent implements OnInit {
     result$.asObservable()
       .pipe(
         take(1),
-        switchMap(async (result) => result ? this.eventService.delete(id).subscribe() : EMPTY),
+        switchMap(
+          async (result) => result ?
+          this.eventService.delete(id)
+            .pipe(
+              tap(() => this.toast.success({detail: "Mensagem de sucesso", summary: "Evento excluido com sucesso", duration: 5000})),
+              catchError(async (err) => this.toast.error({detail: "Mensagem de Erro", summary: err.error.message, duration: 5000}))
+            )
+            .subscribe()
+          : EMPTY
+        ),
         delay(500),
-        tap(() => this.onRefresh()),
-        // Success ao excluir
-        catchError(async (err) => this.toast.error({detail: "Mensagem de Erro", summary: err.error.message, duration: 5000})),
+        tap(() => {
+          this.onRefresh()
+        }),
       )
       .subscribe()
   }
