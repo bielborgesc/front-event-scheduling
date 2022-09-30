@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { EventService } from 'src/app/service/event.service';
 import decode from 'jwt-decode';
 import { NgToastService } from 'ng-angular-popup';
+import { catchError, tap } from 'rxjs';
 
 @Component({
   selector: 'app-new-event',
@@ -18,6 +19,7 @@ export class NewEventComponent implements OnInit {
     finish: new UntypedFormControl('')
   })
 
+  token: any = decode(localStorage.getItem('token')!);
 
   constructor(
     private eventService: EventService,
@@ -29,28 +31,25 @@ export class NewEventComponent implements OnInit {
   }
 
   create(): void{
-    const token = localStorage.getItem('token');
-    const tokenPayload : any = decode(token!);
     const event = {
       user: {
-        id: tokenPayload.sub
+        id: this.token.sub
       },
       description: this.formEvent.value.description,
       start: this.formEvent.value.start,
       finish: this.formEvent.value.finish
     }
-    const router = this.router;
-    const toast = this.toast;
+
+
     this.eventService.create(event)
-      .subscribe({
-        next(){
-          router.navigate(['/event-list']);
-          toast.success({detail: "Mensagem de Sucesso", summary: "Evento cadastrado com sucesso", duration: 5000})
-        },
-        error(){
-          toast.error({detail: "Mensagem de Erro", summary: "Houve um erro tente novamente", duration: 5000})
-        }
-      })
+      .pipe(
+        tap(() => {
+          this.router.navigate(['/event-list']);
+          this.toast.success({detail: "Mensagem de Sucesso", summary: "Evento cadastrado com sucesso", duration: 5000})
+        }),
+        catchError(async (err) => this.toast.error({ detail: "Mensagem de Erro", summary: err.error.message, duration: 5000 }) )
+      )
+      .subscribe()
   }
 
 }
