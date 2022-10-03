@@ -20,11 +20,13 @@ import { EventService } from './event.service';
 @Controller('event')
 @UseGuards(AuthGuard('jwt'))
 export class EventController {
-  constructor(private eventService: EventService) {}
+  constructor(
+    private eventService: EventService,
+    ) {}
 
   @Post()
-  create(@Body() body: CreateEventDto): Promise<Event> {
-    return this.eventService.create(body);
+  async create(@Body() body: CreateEventDto): Promise<Event> {
+    return await this.eventService.create(body);
   }
 
   @Get()
@@ -35,6 +37,11 @@ export class EventController {
   @Get(':id')
   findOne(@Param('id') id: number): Promise<Event> {
     return this.eventService.findOneOrFail({ where: { id: id } });
+  }
+
+  @Get('/user/:idUser')
+  findOneByIdUser(@Param('idUser') idUser: string): Promise<Event[]> {
+    return this.eventService.findByOrFail({ where: { user: {id: idUser} } });
   }
 
   @Delete(':id')

@@ -8,6 +8,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -22,10 +23,10 @@ export class UserController {
 
   @Post()
   create(@Body() body: CreateUserDto): Promise<User> {
-    return this.userService.create(body);
+    return this.userService.create(body)
   }
 
-  @Get()
+  @Get('/listar')
   @UseGuards(AuthGuard('jwt'))
   findAll(): Promise<User[]> {
     return this.userService.findAll();
@@ -33,20 +34,26 @@ export class UserController {
 
   @Get(':id')
   @UseGuards(AuthGuard('jwt'))
-  findOne(@Param('id') id: number): Promise<User> {
+  findOne(@Param('id') id: string): Promise<User> {
     return this.userService.findOneOrFail({ where: { id: id } });
+  }
+
+  @Get()
+  @UseGuards(AuthGuard('jwt'))
+  findOneByEmail(@Query('email') email: string): Promise<User> {
+    return this.userService.findOneOrFail({ where: { email: email } });
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id') id: number) {
+  remove(@Param('id') id: string) {
     return this.userService.remove(id);
   }
 
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
-  update(@Param('id') id: number, @Body() body: UpdateUserDto) {
+  update(@Param('id') id: string, @Body() body: UpdateUserDto) {
     return this.userService.update(id, body);
   }
 

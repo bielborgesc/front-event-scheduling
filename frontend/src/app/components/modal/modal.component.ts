@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { Component, Input, OnInit} from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
@@ -8,16 +9,30 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 })
 export class ModalComponent implements OnInit {
 
-  constructor(
-    public activateModal: NgbActiveModal,
-  ) { }
+  @Input() title!: string;
+  @Input() msg!: string;
+  @Input() cancelTxt: string = "Cancelar";
+  @Input() okTxt: string = "Ok";
 
-  ngOnInit() {
+  confirmResult!: Subject<boolean>;
+
+  constructor(public bsModalRef: BsModalRef){}
+
+  ngOnInit(): void {
+    this.confirmResult = new Subject();
   }
 
-  logout(){
-    localStorage.removeItem("token");
-    location.reload();
+  onConfirm(){
+    this.confirmAndClose(true);
+  }
+
+  onClose(){
+    this.confirmAndClose(false);
+  }
+
+  private confirmAndClose(value: boolean){
+    this.confirmResult.next(value);
+    this.bsModalRef.hide();
   }
 
 }
