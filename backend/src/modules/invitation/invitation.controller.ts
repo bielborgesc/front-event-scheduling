@@ -23,7 +23,6 @@ export class InvitationController {
     return this.invitationService.findAll();
   }
   
-
   @Get(':id')
   findOne(@Param('id') id: number): Promise<Invitation> {
     return this.invitationService.findOneOrFail({ where: { id: id } });
@@ -34,10 +33,16 @@ export class InvitationController {
     return this.invitationService.findByOrFail({ where: { user: {id: idUser} } });
   }
 
+  @Get('/user/:idUser/:status')
+  findOneByIdUserAndStatus(@Param('idUser') idUser: string, @Param('status') status: string): Promise<Invitation[]> {
+    return this.invitationService.findByOrFail({ where: {status: status, user: {id: idUser} } });
+  }
+
   @Get('/event/:idevent')
   findOneByIdEvent(@Param('idevent') idevent: number): Promise<Invitation[]> {
     return this.invitationService.findByOrFail({ where: { event: {id: idevent} } });
   }
+  
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)

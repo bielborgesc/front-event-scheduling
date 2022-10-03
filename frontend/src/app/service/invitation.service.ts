@@ -23,6 +23,10 @@ export class InvitationService {
     return this.http.get<any>(`${baseUrl}/user/${id}`);
   }
 
+  findAllByUserAndStatus(id: string, status: string): Observable<any> {
+    return this.http.get<any>(`${baseUrl}/user/${id}/${status}`);
+  }
+
   findAllByEvent(id: number): Observable<any> {
     return this.http.get<any>(`${baseUrl}/event/${id}`);
   }

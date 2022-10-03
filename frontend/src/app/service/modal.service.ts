@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable} from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ModalComponent } from '../components/modal/modal.component';
+import { NotificationsComponent } from '../views/invitations/notifications/notifications.component';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,11 @@ export class ModalService {
     if(cancelTxt) bsModalRef.content.cancelTxt = cancelTxt;
 
     return (<ModalComponent>bsModalRef.content).confirmResult;
-
   }
+
+  showNotification(){
+    this.modalService.show(NotificationsComponent);
+  }
+
 
 }
