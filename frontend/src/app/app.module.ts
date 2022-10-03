@@ -24,7 +24,8 @@ import { LogoutDirective } from './directives/access.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MsgValidationErrorComponent } from './components/msg-validation-error/msg-validation-error.component';
-import { InvitationsComponent } from './views/invitations/invitations.component';
+import { InvitationsComponent } from './views/invitations/invite-manager/invitations.component';
+import { NotificationsComponent } from './views/invitations/notifications/notifications.component';
 
 registerLocaleData(localePt);
 
@@ -42,6 +43,7 @@ registerLocaleData(localePt);
     LogoutDirective,
     MsgValidationErrorComponent,
     InvitationsComponent,
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,

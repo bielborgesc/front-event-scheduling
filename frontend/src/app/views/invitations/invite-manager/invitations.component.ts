@@ -6,9 +6,9 @@ import { tap, catchError, finalize, delay, Observable, EMPTY } from 'rxjs';
 import { EventService } from 'src/app/service/event.service';
 import { InvitationService } from 'src/app/service/invitation.service';
 import { UserService } from 'src/app/service/user.service';
-import { Event } from '../../model/event.model';
-import { User } from '../../model/user.model';
-import { Invitation } from '../../model/invitation.model';
+import { Event } from '../../../model/event.model';
+import { User } from '../../../model/user.model';
+import { Invitation } from '../../../model/invitation.model';
 
 @Component({
   selector: 'app-invitations',

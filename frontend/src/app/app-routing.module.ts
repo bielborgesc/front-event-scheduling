@@ -6,7 +6,7 @@ import { EventListComponent } from './views/events/event-list/event-list.compone
 import { LoginComponent } from './views/user/login/login.component';
 import { NewEventComponent } from './views/events/new-event/new-event.component';
 import { RegisterComponent } from './views/user/register/register.component';
-import { InvitationsComponent } from './views/invitations/invitations.component';
+import { InvitationsComponent } from './views/invitations/invite-manager/invitations.component';
 
 const routes: Routes = [
 

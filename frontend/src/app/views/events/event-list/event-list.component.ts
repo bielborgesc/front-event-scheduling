@@ -5,6 +5,7 @@ import decode from 'jwt-decode';
 import { NgToastService } from 'ng-angular-popup';
 import { ModalService } from 'src/app/service/modal.service';
 import { catchError, delay, EMPTY, finalize, Observable, switchMap, take, tap } from 'rxjs';
+import { InvitationService } from 'src/app/service/invitation.service';
 
 
 @Component({
@@ -16,13 +17,15 @@ export class EventListComponent implements OnInit {
 
   events$!: Observable<any>;
   token: any = decode(localStorage.getItem('token')!);
+  invitesAccepted$!: Observable<any>;
 
   constructor(
     private eventService: EventService,
     private modalService: ModalService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private toast: NgToastService
+    private toast: NgToastService,
+    private invitationService: InvitationService
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +39,14 @@ export class EventListComponent implements OnInit {
         return EMPTY;
       })
     );
+
+    this.invitesAccepted$ = this.invitationService.findAllByUserAndStatus(this.token.sub, 'ACCEPT').pipe(
+      catchError( async (err) => {
+        this.toast.error({detail: "Mensagem de Erro", summary: err.error.message, duration: 5000})
+        return EMPTY;
+      })
+    );
+
   }
 
   editEvent(id: number): void{
